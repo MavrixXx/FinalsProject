@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1E1E1E"
+    tools:context=".Edit_Profile_Activity">
+
+    <RelativeLayout
+        android:id="@+id/editProfileBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:background="@drawable/rounded_gray_background_upsidedown">
+
+        <TextView
+            android:id="@+id/editProfileText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/delius_swash_caps_regular"
+            android:text="Edit Profile"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/editProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/profile_icon"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/changePictureText"
+        android:layout_below="@+id/profileImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change profile picture"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_centerHorizontal="true"/>
+
+    <RelativeLayout
+        android:id="@+id/box"
+        android:layout_below="@+id/changePictureText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true">
+
+    <EditText
+        android:id="@+id/editUsername"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:paddingLeft="20dp"
+        android:hint="Username"
+        android:textSize="18sp"
+        android:textColorHint="@color/gray"
+        android:background="@drawable/circular_edit_text"/>
+
+    <EditText
+        android:id="@+id/editEmail"
+        android:layout_below="@id/editUsername"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:paddingLeft="20dp"
+        android:hint="Email"
+        android:textSize="18sp"
+        android:textColorHint="@color/gray"
+        android:background="@drawable/circular_edit_text"/>
+
+    <EditText
+        android:id="@+id/editPhone"
+        android:layout_below="@id/editEmail"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:paddingLeft="20dp"
+        android:hint="Phone Number"
+        android:textSize="18sp"
+        android:textColorHint="@color/gray"
+        android:background="@drawable/circular_edit_text"/>
+
+    <EditText
+        android:id="@+id/editAddress"
+        android:layout_below="@id/editPhone"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:paddingLeft="20dp"
+        android:hint="Address"
+        android:textSize="18sp"
+        android:textColorHint="@color/gray"
+        android:background="@drawable/circular_edit_text"/>
+
+    <EditText
+        android:id="@+id/editPassword"
+        android:layout_below="@id/editAddress"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:paddingLeft="20dp"
+        android:hint="Password"
+        android:textSize="18sp"
+        android:textColorHint="@color/gray"
+        android:background="@drawable/circular_edit_text"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_below="@id/editPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:padding="20dp"
+        android:text="Save Changes"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@drawable/gradient_curved_button"
+        android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

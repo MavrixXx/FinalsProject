@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/leaf_background"
+    tools:context=".Login_Activity">
+
+    <RelativeLayout
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+    <ImageView
+        android:id="@+id/floraSenseLogo2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/flora_sense_logo"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/floraSenseText2"
+        android:layout_below="@+id/floraSenseLogo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/delius_swash_caps_regular"
+        android:text="Flora Sense"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/loginDescriptionText"
+        android:layout_below="@id/floraSenseText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_font"
+        android:text="Create an account"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"/>
+
+    <RelativeLayout
+        android:id="@+id/loginTransparentBackground"
+        android:layout_below="@id/loginDescriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/curved_transparent_background"
+        android:layout_centerHorizontal="true">
+
+        <EditText
+            android:id="@+id/usernameEdittext"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circular_edit_text"
+            android:fontFamily="@font/roboto_font"
+            android:hint="Username"
+            android:textSize="15sp"
+            android:textColorHint="@color/gray"
+            android:paddingLeft="20dp"
+            android:inputType="text"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/emailEdittext"
+            android:layout_below="@+id/usernameEdittext"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circular_edit_text"
+            android:fontFamily="@font/roboto_font"
+            android:hint="Email"
+            android:textSize="15sp"
+            android:textColorHint="@color/gray"
+            android:paddingLeft="20dp"
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/passwordEdittext"
+            android:layout_below="@+id/emailEdittext"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circular_edit_text"
+            android:fontFamily="@font/roboto_font"
+            android:hint="Password"
+            android:textSize="15sp"
+            android:textColorHint="@color/gray"
+            android:paddingLeft="20dp"
+            android:inputType="textPassword"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/confirmPasswordEdittext"
+            android:layout_below="@+id/passwordEdittext"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circular_edit_text"
+            android:fontFamily="@font/roboto_font"
+            android:hint="Confirm Password"
+            android:textSize="15sp"
+            android:textColorHint="@color/gray"
+            android:paddingLeft="20dp"
+            android:inputType="textPassword"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/signupButton"
+            android:layout_below="@+id/confirmPasswordEdittext"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/gradient_curved_button"
+            android:fontFamily="@font/roboto_font"
+            android:text="Sign Up"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/alreadyHaveAnAccount"
+        android:layout_below="@id/loginTransparentBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account? Log In"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
