@@ -1,7 +1,9 @@
 package com.example.finalsproject
 
 import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -32,7 +34,6 @@ class Journal_Activity : AppCompatActivity() {
     private val journalNotes = mutableListOf<JournalNote>()
     private val todoItems = mutableListOf<TodoItem>()
 
-    // Track selected items
     private val selectedItems = mutableSetOf<String>()
     private var isSelectionMode = false
 
@@ -57,7 +58,6 @@ class Journal_Activity : AppCompatActivity() {
         }
 
         findViewById<ImageButton>(R.id.exploreImageButton).setOnClickListener {
-            // Navigate to explore
         }
 
         findViewById<ImageButton>(R.id.bookmarkImageButton).setOnClickListener {
@@ -95,13 +95,11 @@ class Journal_Activity : AppCompatActivity() {
     }
 
     private fun deleteSelectedItems() {
-        // Remove selected notes
+
         journalNotes.removeAll { selectedItems.contains(it.id) }
 
-        // Remove selected todo items
         todoItems.removeAll { selectedItems.contains(it.id) }
 
-        // Clear selection and update display
         selectedItems.clear()
         isSelectionMode = false
         updateNotesDisplay()
@@ -120,7 +118,6 @@ class Journal_Activity : AppCompatActivity() {
         val subtasksContainer = dialogView.findViewById<LinearLayout>(R.id.subtasksContainer)
         val addSubtaskButton = dialogView.findViewById<Button>(R.id.buttonAddSubtask)
 
-        // Set up visibility changes based on selection
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radioButtonNote -> {
@@ -131,7 +128,6 @@ class Journal_Activity : AppCompatActivity() {
                     contentEdit.visibility = View.GONE
                     todoListContainer.visibility = View.VISIBLE
 
-                    // If no subtasks exist yet, add one initially
                     if (subtasksContainer.childCount == 0) {
                         addSubtaskView(subtasksContainer)
                     }
@@ -139,7 +135,6 @@ class Journal_Activity : AppCompatActivity() {
             }
         }
 
-        // Setup add subtask button
         addSubtaskButton.setOnClickListener {
             addSubtaskView(subtasksContainer)
         }
@@ -184,7 +179,6 @@ class Journal_Activity : AppCompatActivity() {
         val subtaskView = LayoutInflater.from(this).inflate(R.layout.subtask_item, container, false)
         val removeButton = subtaskView.findViewById<ImageButton>(R.id.buttonRemoveSubtask)
 
-        // Setup remove button functionality
         removeButton.setOnClickListener {
             container.removeView(subtaskView)
         }
@@ -216,15 +210,13 @@ class Journal_Activity : AppCompatActivity() {
     }
 
     private fun updateNotesDisplay() {
-        // Clear all views and re-add them to ensure proper display
+
         scrollFeed.removeAllViews()
 
-        // Combine notes and todos for sorting by timestamp
         val allItems = mutableListOf<Any>()
         allItems.addAll(journalNotes)
         allItems.addAll(todoItems)
 
-        // Sort all items by timestamp (newest first)
         val sortedItems = allItems.sortedByDescending {
             when (it) {
                 is JournalNote -> it.timestamp
@@ -233,7 +225,6 @@ class Journal_Activity : AppCompatActivity() {
             }
         }
 
-        // Add all items in order
         for (item in sortedItems) {
             when (item) {
                 is JournalNote -> addNoteView(item)
@@ -241,62 +232,33 @@ class Journal_Activity : AppCompatActivity() {
             }
         }
 
-        // If no items, show message
         if (allItems.isEmpty()) {
             val emptyText = TextView(this)
             emptyText.text = "No notes or todo items yet. Tap + to add one."
-            emptyText.textSize = 16f
-            emptyText.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            emptyText.setTextColor(resources.getColor(R.color.white, null))
-            emptyText.setPadding(0, 100, 0, 0)
+            emptyText.gravity = Gravity.CENTER
+            emptyText.setTextColor(ContextCompat.getColor(this, R.color.accent_color))
             scrollFeed.addView(emptyText)
         }
     }
 
     private fun addNoteView(note: JournalNote) {
-        // Create a container for the note and its decorative elements
-        val noteContainer = LinearLayout(this)
-        noteContainer.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        noteContainer.orientation = LinearLayout.VERTICAL
-        noteContainer.setPadding(0, 0, 0, 32)
-        noteContainer.tag = note.id // Store the note ID
+        val noteView =
+            LayoutInflater.from(this).inflate(R.layout.item_journal_note, scrollFeed, false)
 
-        // First decorative rectangle - small accent bar
-        val accentBar = View(this)
-        accentBar.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            8
-        ).apply {
-            setMargins(40, 0, 40, 10)
-        }
-        accentBar.setBackgroundColor(resources.getColor(R.color.accent_color, null))
-        noteContainer.addView(accentBar)
+        noteView.tag = note.id
 
-        // Add small decorative circle on the left
-        val leftCircle = View(this)
-        leftCircle.layoutParams = LinearLayout.LayoutParams(
-            20,
-            20
-        ).apply {
-            setMargins(40, 0, 0, 5)
-        }
-        leftCircle.background = resources.getDrawable(R.drawable.circle_background, null)
-        noteContainer.addView(leftCircle)
+        val noteLayout = noteView.findViewById<RelativeLayout>(R.id.noteLayout)
+        val titleTextView = noteView.findViewById<TextView>(R.id.noteTitleTextView)
+        val dateTextView = noteView.findViewById<TextView>(R.id.noteDateTextView)
+        val contentTextView = noteView.findViewById<TextView>(R.id.noteContentTextView)
 
-        // Main note layout
-        val noteLayout = RelativeLayout(this)
-        noteLayout.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        noteLayout.setPadding(20, 20, 20, 20)
-        noteLayout.setBackgroundResource(R.drawable.rounded_white_background)
-        noteLayout.id = View.generateViewId()
+        titleTextView.text = note.title
 
-        // Apply selection background if selected
+        val sdf = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault())
+        dateTextView.text = sdf.format(Date(note.timestamp))
+
+        contentTextView.text = note.content
+
         if (selectedItems.contains(note.id)) {
             noteLayout.setBackgroundColor(
                 ContextCompat.getColor(
@@ -306,85 +268,11 @@ class Journal_Activity : AppCompatActivity() {
             )
         }
 
-        val titleTextView = TextView(this)
-        titleTextView.text = note.title
-        titleTextView.textSize = 16f
-        titleTextView.setTextColor(resources.getColor(R.color.black, null))
-        titleTextView.textAlignment = View.TEXT_ALIGNMENT_CENTER
-        titleTextView.id = View.generateViewId()
-
-        val dateTextView = TextView(this)
-        val sdf = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault())
-        dateTextView.text = sdf.format(Date(note.timestamp))
-        dateTextView.textSize = 12f
-        dateTextView.setTextColor(resources.getColor(R.color.black, null))
-        dateTextView.id = View.generateViewId()
-
-        val contentTextView = TextView(this)
-        contentTextView.text = note.content
-        contentTextView.textSize = 14f
-        contentTextView.setTextColor(resources.getColor(R.color.black, null))
-        contentTextView.id = View.generateViewId()
-
-        val titleParams = RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.WRAP_CONTENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT
-        )
-        titleParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
-
-        val dateParams = RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.WRAP_CONTENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT
-        )
-        dateParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
-        dateParams.addRule(RelativeLayout.BELOW, titleTextView.id)
-        dateParams.topMargin = 8
-
-        val contentParams = RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.MATCH_PARENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT
-        )
-        contentParams.addRule(RelativeLayout.BELOW, dateTextView.id)
-        contentParams.topMargin = 16
-
-        noteLayout.addView(titleTextView, titleParams)
-        noteLayout.addView(dateTextView, dateParams)
-        noteLayout.addView(contentTextView, contentParams)
-
-        // Add main note layout to container
-        noteContainer.addView(noteLayout)
-
-        // Add small decorative circle on the right
-        val rightCircle = View(this)
-        rightCircle.layoutParams = LinearLayout.LayoutParams(
-            20,
-            20
-        ).apply {
-            gravity = android.view.Gravity.END
-            setMargins(0, 5, 40, 0)
-        }
-        rightCircle.background = resources.getDrawable(R.drawable.circle_background, null)
-        noteContainer.addView(rightCircle)
-
-        // Second decorative rectangle - bottom accent
-        val bottomAccent = View(this)
-        bottomAccent.layoutParams = LinearLayout.LayoutParams(
-            200,
-            5
-        ).apply {
-            gravity = android.view.Gravity.CENTER_HORIZONTAL
-            setMargins(0, 10, 0, 0)
-        }
-        bottomAccent.setBackgroundColor(resources.getColor(R.color.accent_color, null))
-        noteContainer.addView(bottomAccent)
-
-        // Setup long click for selection
         noteLayout.setOnLongClickListener {
             handleItemSelection(note.id, noteLayout)
             true
         }
 
-        // Setup click for editing (if not in selection mode)
         noteLayout.setOnClickListener {
             if (isSelectionMode) {
                 handleItemSelection(note.id, noteLayout)
@@ -393,32 +281,28 @@ class Journal_Activity : AppCompatActivity() {
             }
         }
 
-        // Add the entire container to the feed
-        scrollFeed.addView(noteContainer)
+        scrollFeed.addView(noteView)
     }
 
     private fun showEditNoteDialog(note: JournalNote) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_note, null)
 
-        // Find views
         val titleEdit = dialogView.findViewById<EditText>(R.id.editTextEditTitle)
         val contentEdit = dialogView.findViewById<EditText>(R.id.editTextEditContent)
 
-        // Set current values
         titleEdit.setText(note.title)
         contentEdit.setText(note.content)
 
-        // Show dialog
         AlertDialog.Builder(this)
             .setTitle("Edit Note")
             .setView(dialogView)
             .setPositiveButton("Save") { _, _ ->
-                // Get updated values
+
                 val updatedTitle = titleEdit.text.toString()
                 val updatedContent = contentEdit.text.toString()
 
                 if (updatedTitle.isNotEmpty()) {
-                    // Find and update the note
+
                     val index = journalNotes.indexOfFirst { it.id == note.id }
                     if (index >= 0) {
                         journalNotes[index] = JournalNote(
@@ -436,49 +320,21 @@ class Journal_Activity : AppCompatActivity() {
     }
 
     private fun addTodoView(todo: TodoItem) {
-        // Create a container for the to-do item
-        val todoContainer = LinearLayout(this)
-        todoContainer.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        todoContainer.orientation = LinearLayout.VERTICAL
-        todoContainer.setPadding(0, 0, 0, 32)
-        todoContainer.tag = todo.id // Store the todo ID
+        val todoView =
+            LayoutInflater.from(this).inflate(R.layout.item_journal_todo, scrollFeed, false)
 
-        // First decorative rectangle - small accent bar with different color for todo
-        val accentBar = View(this)
-        accentBar.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            8
-        ).apply {
-            setMargins(40, 0, 40, 10)
-        }
-        accentBar.setBackgroundColor(resources.getColor(R.color.purple_200, null))
-        todoContainer.addView(accentBar)
+        todoView.tag = todo.id
 
-        // Add small decorative circle on the left
-        val leftCircle = View(this)
-        leftCircle.layoutParams = LinearLayout.LayoutParams(
-            20,
-            20
-        ).apply {
-            setMargins(40, 0, 0, 5)
-        }
-        leftCircle.background = resources.getDrawable(R.drawable.circle_background, null)
-        todoContainer.addView(leftCircle)
+        val todoLayout = todoView.findViewById<RelativeLayout>(R.id.todoLayout)
+        val titleTextView = todoView.findViewById<TextView>(R.id.todoTitleTextView)
+        val dateTextView = todoView.findViewById<TextView>(R.id.todoDateTextView)
+        val subtasksContainer = todoView.findViewById<LinearLayout>(R.id.subtasksContainer)
 
-        // Main todo layout
-        val todoLayout = RelativeLayout(this)
-        todoLayout.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        todoLayout.setPadding(20, 20, 20, 20)
-        todoLayout.setBackgroundResource(R.drawable.rounded_white_background)
-        todoLayout.id = View.generateViewId()
+        titleTextView.text = todo.title
 
-        // Apply selection background if selected
+        val sdf = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault())
+        dateTextView.text = sdf.format(Date(todo.timestamp))
+
         if (selectedItems.contains(todo.id)) {
             todoLayout.setBackgroundColor(
                 ContextCompat.getColor(
@@ -488,86 +344,19 @@ class Journal_Activity : AppCompatActivity() {
             )
         }
 
-        // Title text view
-        val titleTextView = TextView(this)
-        titleTextView.text = todo.title
-        titleTextView.textSize = 18f
-        titleTextView.setTextColor(resources.getColor(R.color.black, null))
-        titleTextView.textAlignment = View.TEXT_ALIGNMENT_CENTER
-        titleTextView.id = View.generateViewId()
-
-        // Date text view
-        val dateTextView = TextView(this)
-        val sdf = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault())
-        dateTextView.text = sdf.format(Date(todo.timestamp))
-        dateTextView.textSize = 12f
-        dateTextView.setTextColor(resources.getColor(R.color.black, null))
-        dateTextView.id = View.generateViewId()
-
-        // Subtasks container
-        val subtasksContainer = LinearLayout(this)
-        subtasksContainer.orientation = LinearLayout.VERTICAL
-        subtasksContainer.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        subtasksContainer.id = View.generateViewId()
-
-        // Add title to layout
-        val titleParams = RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.WRAP_CONTENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT
-        )
-        titleParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
-        todoLayout.addView(titleTextView, titleParams)
-
-        // Add date to layout
-        val dateParams = RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.WRAP_CONTENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT
-        )
-        dateParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
-        dateParams.addRule(RelativeLayout.BELOW, titleTextView.id)
-        dateParams.topMargin = 8
-        todoLayout.addView(dateTextView, dateParams)
-
-        // Add subtasks container to layout
-        val subtasksParams = RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.MATCH_PARENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT
-        )
-        subtasksParams.addRule(RelativeLayout.BELOW, dateTextView.id)
-        subtasksParams.topMargin = 16
-        todoLayout.addView(subtasksContainer, subtasksParams)
-
-        // Add each subtask
         for (subtask in todo.subtasks) {
-            val subtaskLayout = LinearLayout(this)
-            subtaskLayout.orientation = LinearLayout.HORIZONTAL
-            subtaskLayout.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            subtaskLayout.setPadding(0, 4, 0, 4)
+            // Inflate subtask view
+            val subtaskView = LayoutInflater.from(this)
+                .inflate(R.layout.item_subtask_view, subtasksContainer, false)
 
-            val checkbox = CheckBox(this)
+            // Find views
+            val checkbox = subtaskView.findViewById<CheckBox>(R.id.subtaskCheckBox)
+            val subtaskText = subtaskView.findViewById<TextView>(R.id.subtaskTextView)
+
+            // Set data
             checkbox.isChecked = subtask.isCompleted
-            checkbox.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            checkbox.tag = subtask.id // Store subtask ID for reference
-
-            val subtaskText = TextView(this)
             subtaskText.text = subtask.title
-            subtaskText.textSize = 16f
-            subtaskText.setTextColor(resources.getColor(R.color.black, null))
-            subtaskText.layoutParams = LinearLayout.LayoutParams(
-                0,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1.0f
-            )
-            subtaskText.setPadding(16, 0, 0, 0)
+            checkbox.tag = subtask.id
 
             // Apply strikethrough if subtask is completed
             if (subtask.isCompleted) {
@@ -594,18 +383,14 @@ class Journal_Activity : AppCompatActivity() {
                 }
             }
 
-            subtaskLayout.addView(checkbox)
-            subtaskLayout.addView(subtaskText)
-            subtasksContainer.addView(subtaskLayout)
+            subtasksContainer.addView(subtaskView)
         }
 
-        // Setup long click for selection
         todoLayout.setOnLongClickListener {
             handleItemSelection(todo.id, todoLayout)
             true
         }
 
-        // Setup click for editing (if not in selection mode)
         todoLayout.setOnClickListener {
             if (isSelectionMode) {
                 handleItemSelection(todo.id, todoLayout)
@@ -614,35 +399,7 @@ class Journal_Activity : AppCompatActivity() {
             }
         }
 
-        // Add main todo layout to container
-        todoContainer.addView(todoLayout)
-
-        // Add small decorative circle on the right
-        val rightCircle = View(this)
-        rightCircle.layoutParams = LinearLayout.LayoutParams(
-            20,
-            20
-        ).apply {
-            gravity = android.view.Gravity.END
-            setMargins(0, 5, 40, 0)
-        }
-        rightCircle.background = resources.getDrawable(R.drawable.circle_background, null)
-        todoContainer.addView(rightCircle)
-
-        // Second decorative rectangle - bottom accent with different color for todo
-        val bottomAccent = View(this)
-        bottomAccent.layoutParams = LinearLayout.LayoutParams(
-            200,
-            5
-        ).apply {
-            gravity = android.view.Gravity.CENTER_HORIZONTAL
-            setMargins(0, 10, 0, 0)
-        }
-        bottomAccent.setBackgroundColor(resources.getColor(R.color.purple_200, null))
-        todoContainer.addView(bottomAccent)
-
-        // Add the entire container to the feed
-        scrollFeed.addView(todoContainer)
+        scrollFeed.addView(todoView)
     }
 
     private fun handleItemSelection(itemId: String, view: View) {
@@ -650,22 +407,18 @@ class Journal_Activity : AppCompatActivity() {
             isSelectionMode = true
         }
 
-        // Toggle selection
         if (selectedItems.contains(itemId)) {
             selectedItems.remove(itemId)
 
-            // Reset background
             if (view is RelativeLayout) {
                 view.setBackgroundResource(R.drawable.rounded_white_background)
             }
         } else {
             selectedItems.add(itemId)
 
-            // Highlight selected item
             view.setBackgroundColor(ContextCompat.getColor(this, R.color.selected_item_background))
         }
 
-        // If nothing selected anymore, exit selection mode
         if (selectedItems.isEmpty()) {
             isSelectionMode = false
         }
@@ -674,25 +427,20 @@ class Journal_Activity : AppCompatActivity() {
     private fun showEditTodoDialog(todo: TodoItem) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_todo, null)
 
-        // Find views
         val titleEdit = dialogView.findViewById<EditText>(R.id.editTextEditTitle)
         val subtasksContainer = dialogView.findViewById<LinearLayout>(R.id.subtasksEditContainer)
         val addSubtaskButton = dialogView.findViewById<Button>(R.id.buttonAddSubtaskInEdit)
 
-        // Set current title
         titleEdit.setText(todo.title)
 
-        // Add existing subtasks
         for (subtask in todo.subtasks) {
             addSubtaskToEditView(subtasksContainer, subtask)
         }
 
-        // Setup add subtask button
         addSubtaskButton.setOnClickListener {
             addSubtaskToEditView(subtasksContainer, null)
         }
 
-        // Show dialog
         AlertDialog.Builder(this)
             .setTitle("Edit To-Do List")
             .setView(dialogView)
@@ -702,7 +450,6 @@ class Journal_Activity : AppCompatActivity() {
                 if (updatedTitle.isNotEmpty()) {
                     val updatedSubtasks = collectSubtasksFromEdit(subtasksContainer, todo.subtasks)
 
-                    // Find and update the todo
                     val index = todoItems.indexOfFirst { it.id == todo.id }
                     if (index >= 0) {
                         todoItems[index] = TodoItem(
@@ -727,16 +474,14 @@ class Journal_Activity : AppCompatActivity() {
         val editText = subtaskView.findViewById<EditText>(R.id.editTextSubtask)
         val removeButton = subtaskView.findViewById<ImageButton>(R.id.buttonRemoveSubtask)
 
-        // Set existing values if editing a subtask
         if (subtask != null) {
             checkbox.isChecked = subtask.isCompleted
             editText.setText(subtask.title)
-            subtaskView.tag = subtask.id // Store ID for reference
+            subtaskView.tag = subtask.id
         } else {
-            subtaskView.tag = UUID.randomUUID().toString() // New ID for new subtask
+            subtaskView.tag = UUID.randomUUID().toString()
         }
 
-        // Setup remove button
         removeButton.setOnClickListener {
             container.removeView(subtaskView)
         }
@@ -758,7 +503,6 @@ class Journal_Activity : AppCompatActivity() {
             val subtaskId = subtaskView.tag as String
 
             if (subtaskTitle.isNotEmpty()) {
-                // Try to find original subtask to preserve ID
                 val subtask = Subtask(
                     id = subtaskId,
                     title = subtaskTitle,

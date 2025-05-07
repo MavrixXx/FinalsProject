@@ -18,6 +18,6 @@
     <color name="aqua">#00FFFF</color>
     <color name="teal">#008080</color>
     <color name="accent_color">#74BD5C</color>
-    <color name="purple_200">#BB86FC</color>
-    <color name="selected_item_background">#330066FF</color>
+    <color name="purple_200">#3C682B</color>
+    <color name="selected_item_background">#20560E</color>
 </resources>
