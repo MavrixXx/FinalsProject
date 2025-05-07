@@ -43,6 +43,7 @@ class Signup_Activity : AppCompatActivity() {
                 Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Signup Successful", Toast.LENGTH_SHORT).show()
+                addUser()
 
                 val loginIntent = Intent(this, Login_Activity::class.java)
                 loginIntent.putExtra("USERNAME", username)
@@ -63,7 +64,7 @@ class Signup_Activity : AppCompatActivity() {
             startActivity(loginIntent)
         }
 
-        addUser()
+
     }
 
     private fun addUser(){
