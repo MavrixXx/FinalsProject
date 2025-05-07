@@ -445,23 +445,253 @@
                     android:textStyle="bold"/>
             </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/plantSeven"
+            android:layout_below="@id/plantSix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_white_background"
+            android:padding="20dp"
+            android:layout_centerHorizontal="true">
+
             <TextView
-                android:id="@+id/noMoreContentText"
+                android:id="@+id/yuccaPlantText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="wala na hehe"
-                android:textColor="@color/white"
+                android:text="Yucca Plant"
+                android:textColor="@color/black"
                 android:textSize="15sp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/plantSix"
-                android:layout_marginVertical="100dp"/>
-            
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_below="@id/plantSix"/>
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"/>
+
+            <ImageView
+                android:id="@+id/yuccaPlantImage"
+                android:layout_below="@id/yuccaPlantText"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="15dp"
+                android:clickable="true"
+                android:src="@drawable/yucca_plant_image"
+                android:background="@drawable/rounded_silver_background"/>
+
+            <Button
+                android:id="@+id/informationButtonYuccaPlant"
+                android:layout_below="@id/yuccaPlantText"
+                android:layout_toRightOf="@id/yuccaPlantImage"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/rounded_silver_background"
+                android:text="More Information"
+                android:textSize="10sp"/>
+
+            <Button
+                android:id="@+id/bookmarkButtonYuccaPlant"
+                android:layout_below="@id/informationButtonYuccaPlant"
+                android:layout_toRightOf="@id/yuccaPlantImage"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/rounded_gradient_button"
+                android:text="Bookmark"
+                android:textSize="10sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/plantEight"
+            android:layout_below="@id/plantSeven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_white_background"
+            android:padding="20dp"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:id="@+id/aloeVeraText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aloe Vera"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"/>
+
+            <ImageView
+                android:id="@+id/aloeVeraImage"
+                android:layout_below="@id/aloeVeraText"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="15dp"
+                android:clickable="true"
+                android:src="@drawable/aloe_vera_image"
+                android:background="@drawable/rounded_silver_background"/>
+
+            <Button
+                android:id="@+id/informationButtonAloeVera"
+                android:layout_below="@id/aloeVeraText"
+                android:layout_toRightOf="@id/aloeVeraImage"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/rounded_silver_background"
+                android:text="More Information"
+                android:textSize="10sp"/>
+
+            <Button
+                android:id="@+id/bookmarkButtonAloeVera"
+                android:layout_below="@id/informationButtonAloeVera"
+                android:layout_toRightOf="@id/aloeVeraImage"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/rounded_gradient_button"
+                android:text="Bookmark"
+                android:textSize="10sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/plantNine"
+                android:layout_below="@id/plantEight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_white_background"
+                android:padding="20dp"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:id="@+id/paintersPaletteText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Painter's-palette"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"/>
+
+                <ImageView
+                    android:id="@+id/paintersPaletteImage"
+                    android:layout_below="@id/paintersPaletteText"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="15dp"
+                    android:clickable="true"
+                    android:src="@drawable/painters_palette_image"
+                    android:background="@drawable/rounded_silver_background"/>
+
+                <Button
+                    android:id="@+id/informationButtonPaintersPalette"
+                    android:layout_below="@id/paintersPaletteText"
+                    android:layout_toRightOf="@id/paintersPaletteImage"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/rounded_silver_background"
+                    android:text="More Information"
+                    android:textSize="10sp"/>
+
+                <Button
+                    android:id="@+id/bookmarkButtonPaintersPalette"
+                    android:layout_below="@id/informationButtonPaintersPalette"
+                    android:layout_toRightOf="@id/paintersPaletteImage"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/rounded_gradient_button"
+                    android:text="Bookmark"
+                    android:textSize="10sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/plantTen"
+                android:layout_below="@id/plantNine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_white_background"
+                android:padding="20dp"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:id="@+id/bunnyEarsCactusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bunny Ears Cactus"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"/>
+
+                <ImageView
+                    android:id="@+id/bunnyEarsCactusImage"
+                    android:layout_below="@id/bunnyEarsCactusText"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="15dp"
+                    android:clickable="true"
+                    android:src="@drawable/bunny_ears_cactus"
+                    android:background="@drawable/rounded_silver_background"/>
+
+                <Button
+                    android:id="@+id/informationButtonBunnyEarsCactus"
+                    android:layout_below="@id/bunnyEarsCactusText"
+                    android:layout_toRightOf="@id/bunnyEarsCactusImage"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/rounded_silver_background"
+                    android:text="More Information"
+                    android:textSize="10sp"/>
+
+                <Button
+                    android:id="@+id/bookmarkButtonBunnyEarsCactus"
+                    android:layout_below="@id/informationButtonBunnyEarsCactus"
+                    android:layout_toRightOf="@id/bunnyEarsCactusImage"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/rounded_gradient_button"
+                    android:text="Bookmark"
+                    android:textSize="10sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+
+        <TextView
+            android:id="@+id/noMoreContentText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="wala na hehe"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/plantTen"
+            android:layout_marginVertical="100dp"/>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@id/plantTen"/>
+
+        </RelativeLayout>
+
     </ScrollView>
 
     <RelativeLayout
