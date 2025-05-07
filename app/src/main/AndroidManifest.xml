@@ -22,10 +22,10 @@
             android:exported="false" />
         <activity
             android:name=".Signup_Activity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Login_Activity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Main_Dashboard_Activity"
             android:exported="false" />
@@ -37,6 +37,9 @@
             android:exported="false" />
         <activity
             android:name=".Developers_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Journal_Activity"
             android:exported="false" />
         <activity
             android:name=".Get_Started_Activity"

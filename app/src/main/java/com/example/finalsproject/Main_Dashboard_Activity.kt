@@ -125,6 +125,15 @@ class Main_Dashboard_Activity : Activity() {
             profileIntent.putExtra("PASSWORD", finalPassword)
             startActivity(profileIntent)
         }
+
+        findViewById<ImageButton>(R.id.journalImageButton).setOnClickListener {
+            val journalIntent = Intent(this, Journal_Activity::class.java)
+            journalIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
+            journalIntent.putExtra("USERNAME", username)
+            journalIntent.putExtra("EMAIL", email)
+            journalIntent.putExtra("PASSWORD", finalPassword)
+            startActivity(journalIntent)
+        }
     }
 
     private fun showPlantInfo(plantName: String, plantDescription: String) {

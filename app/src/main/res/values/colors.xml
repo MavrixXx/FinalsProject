@@ -17,4 +17,5 @@
     <color name="blue">#0000FF</color>
     <color name="aqua">#00FFFF</color>
     <color name="teal">#008080</color>
+    <color name="accent_color">#74BD5C</color>
 </resources>

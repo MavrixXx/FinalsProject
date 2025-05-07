@@ -20,7 +20,7 @@ class Signup_Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-        /*val usernameEditText = findViewById<EditText>(R.id.usernameEdittext)
+        val usernameEditText = findViewById<EditText>(R.id.usernameEdittext)
         val emailEditText = findViewById<EditText>(R.id.emailEdittext)
         val passwordEditText = findViewById<EditText>(R.id.passwordEdittext)
         val confirmPasswordEditText = findViewById<EditText>(R.id.confirmPasswordEdittext)
@@ -62,14 +62,11 @@ class Signup_Activity : AppCompatActivity() {
             loginIntent.putExtra("PASSWORD", password)
             startActivity(loginIntent)
         }
-
-         */
-
         addUser()
     }
 
     private fun addUser(){
-        findViewById<Button>(R.id.signupButton).setOnClickListener {
+        findViewById<Button>(R.id.signupButton)
             val usernameEditText = findViewById<EditText>(R.id.usernameEdittext).text.toString()
             val emailEditText = findViewById<EditText>(R.id.emailEdittext).text.toString()
             val passwordEditText = findViewById<EditText>(R.id.passwordEdittext).text.toString()
@@ -81,17 +78,12 @@ class Signup_Activity : AppCompatActivity() {
                 password = passwordEditText,
                 confirmPassword = confirmPasswordEditText
             )
-
             userViewModel.registerUser(user)
-
         }
-
-
-
     }
 
     private fun isValidEmail(email: String): Boolean {
         val emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
         return email.matches(emailPattern.toRegex())
     }
-}
+
