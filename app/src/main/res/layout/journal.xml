@@ -8,41 +8,47 @@
     android:background="#1E1E1E"
     tools:context=".Main_Dashboard_Activity">
 
-    <TextView
-        android:id="@+id/floraSenseText3"
+    <RelativeLayout
+        android:id="@+id/journalBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_gray_background_upsidedown"
-        android:fontFamily="@font/delius_swash_caps_regular"
         android:padding="20dp"
+        android:background="@drawable/rounded_gray_background_upsidedown"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/backImageButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/back_icon"/>
+
+    <TextView
+        android:id="@+id/journalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/delius_swash_caps_regular"
         android:text="Journal"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_centerHorizontal="true"/>
 
     <ImageButton
-        android:id="@+id/notificationsImageButton"
+        android:id="@+id/addImageButton"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="56dp"
-        android:layout_toRightOf="@id/floraSenseText3"
-        android:background="@drawable/circleplus_icon"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/floraSenseText3" />
+        android:layout_toLeftOf="@id/deleteImageButton"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/circleplus_icon"/>
 
     <ImageButton
         android:id="@+id/deleteImageButton"
-        android:layout_toRightOf="@id/floraSenseText3"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/delete_icon"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/floraSenseText3"/>
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/delete_icon"/>
+
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -52,7 +58,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginTop="20dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/floraSenseText3"
+        app:layout_constraintTop_toBottomOf="@id/journalBox"
         app:layout_constraintBottom_toTopOf="@id/navigationBar">
 
         <LinearLayout

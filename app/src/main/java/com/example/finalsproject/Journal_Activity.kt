@@ -1,6 +1,7 @@
 package com.example.finalsproject
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -32,6 +33,7 @@ class Journal_Activity : AppCompatActivity() {
     private lateinit var scrollFeed: LinearLayout
     private val journalNotes = mutableListOf<JournalNote>()
     private val todoItems = mutableListOf<TodoItem>()
+    private lateinit var bookmarkedPlants: ArrayList<String>
 
     private val selectedItems = mutableSetOf<String>()
     private var isSelectionMode = false
@@ -40,9 +42,11 @@ class Journal_Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.journal)
 
-        plusButton = findViewById(R.id.notificationsImageButton)
+        plusButton = findViewById(R.id.addImageButton)
         deleteButton = findViewById(R.id.deleteImageButton)
         scrollFeed = findViewById(R.id.scrollFeed)
+
+        bookmarkedPlants = intent.getStringArrayListExtra("bookmarked_plants") ?: ArrayList()
 
         setupNavigation()
         setupAddNoteButton()
@@ -51,22 +55,49 @@ class Journal_Activity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-        findViewById<ImageButton>(R.id.homeImageButton).setOnClickListener {
-            finish()
-            startActivity(android.content.Intent(this, Main_Dashboard_Activity::class.java))
+        val username = intent.getStringExtra("USERNAME")
+        val email = intent.getStringExtra("EMAIL")
+        val password = intent.getStringExtra("PASSWORD")
+        val newPassword = intent.getStringExtra("NEW_PASSWORD")
+        val finalPassword = newPassword ?: password
+        val homeButton = findViewById<ImageButton>(R.id.homeImageButton)
+        homeButton.setOnClickListener {
+            val homeIntent = Intent(this, Main_Dashboard_Activity::class.java)
+            homeIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
+            homeIntent.putExtra("USERNAME", username)
+            homeIntent.putExtra("EMAIL", email)
+            homeIntent.putExtra("PASSWORD", finalPassword)
+            startActivity(homeIntent)
         }
 
-        findViewById<ImageButton>(R.id.exploreImageButton).setOnClickListener {
+        val bookmarkButton = findViewById<ImageButton>(R.id.bookmarkImageButton)
+        bookmarkButton.setOnClickListener {
+            val bookmarkIntent = Intent(this, Bookmark_Activity::class.java)
+            bookmarkIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
+            bookmarkIntent.putExtra("USERNAME", username)
+            bookmarkIntent.putExtra("EMAIL", email)
+            bookmarkIntent.putExtra("PASSWORD", finalPassword)
+            startActivity(bookmarkIntent)
         }
 
-        findViewById<ImageButton>(R.id.bookmarkImageButton).setOnClickListener {
-            finish()
-            startActivity(android.content.Intent(this, Bookmark_Activity::class.java))
+        val profileButton = findViewById<ImageButton>(R.id.userImageButton)
+        profileButton.setOnClickListener {
+            val profileIntent = Intent(this, Profile_Activity::class.java)
+            profileIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
+            profileIntent.putExtra("USERNAME", username)
+            profileIntent.putExtra("EMAIL", email)
+            profileIntent.putExtra("PASSWORD", finalPassword)
+            startActivity(profileIntent)
         }
 
-        findViewById<ImageButton>(R.id.userImageButton).setOnClickListener {
-            finish()
-            startActivity(android.content.Intent(this, Profile_Activity::class.java))
+        val backButton = findViewById<ImageButton>(R.id.backImageButton)
+        backButton.setOnClickListener {
+            val backIntent = Intent(this, Main_Dashboard_Activity::class.java)
+            backIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
+            backIntent.putExtra("USERNAME", username)
+            backIntent.putExtra("EMAIL", email)
+            backIntent.putExtra("PASSWORD", finalPassword)
+            startActivity(backIntent)
         }
     }
 
@@ -159,7 +190,7 @@ class Journal_Activity : AppCompatActivity() {
                         val todo = TodoItem(
                             id = UUID.randomUUID().toString(),
                             title = title,
-                            isCompleted = false, // Set initial status based on subtasks completion
+                            isCompleted = false,
                             timestamp = System.currentTimeMillis(),
                             subtasks = subtasks
                         )

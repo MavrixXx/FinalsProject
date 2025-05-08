@@ -28,6 +28,7 @@ class Profile_Activity : Activity() {
         val homeButton = findViewById<ImageButton>(R.id.homeImageButton)
         val bookmarkButton = findViewById<ImageButton>(R.id.bookmarkImageButton)
         val logoutButton = findViewById<Button>(R.id.logoutButton)
+        val journalButton = findViewById<ImageButton>(R.id.journalImageButton)
 
         val usernameTextView = findViewById<TextView>(R.id.username)
         val emailTextView = findViewById<TextView>(R.id.userEmail)
@@ -40,7 +41,7 @@ class Profile_Activity : Activity() {
         val username = intent.getStringExtra("USERNAME")
         val email = intent.getStringExtra("EMAIL")
         val password = intent.getStringExtra("PASSWORD")
-        val newPassword = intent.getStringExtra("NEW_PASSWORD")
+
         bookmarkedPlants = intent.getStringArrayListExtra("bookmarked_plants") ?: ArrayList()
         updatedPassword = intent.getStringExtra("PASSWORD") ?: ""
         updatedEmail = intent.getStringExtra("EMAIL") ?: ""
@@ -48,13 +49,12 @@ class Profile_Activity : Activity() {
         updatedUsername = intent.getStringExtra("USERNAME") ?: ""
         updatedAddress = intent.getStringExtra("ADDRESS") ?: ""
 
-        val finalPassword = newPassword ?: password
 
         usernameTextView.text = username ?: "Guest"
         emailTextView.text = email ?: "sample@email.com"
         usernameInfoText.text = username ?: "enter username"
         emailInfoText.text = email ?: "enter email"
-        passwordTextView.text = generateAsterisksForPassword(finalPassword)
+        passwordTextView.text = generateAsterisksForPassword(password)
 
         val initialProfileImageUri = intent.getStringExtra("PROFILE_IMAGE_URI")
         if (initialProfileImageUri != null) {
@@ -67,7 +67,7 @@ class Profile_Activity : Activity() {
             backIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             backIntent.putExtra("USERNAME", username)
             backIntent.putExtra("EMAIL", email)
-            backIntent.putExtra("PASSWORD", finalPassword)
+            backIntent.putExtra("PASSWORD", password)
             startActivity(backIntent)
         }
 
@@ -76,7 +76,7 @@ class Profile_Activity : Activity() {
             settingsIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             settingsIntent.putExtra("USERNAME", username)
             settingsIntent.putExtra("EMAIL", email)
-            settingsIntent.putExtra("PASSWORD", finalPassword)
+            settingsIntent.putExtra("PASSWORD", password)
             startActivity(settingsIntent)
         }
 
@@ -85,7 +85,7 @@ class Profile_Activity : Activity() {
             homeIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             homeIntent.putExtra("USERNAME", username)
             homeIntent.putExtra("EMAIL", email)
-            homeIntent.putExtra("PASSWORD", finalPassword)
+            homeIntent.putExtra("PASSWORD", password)
             startActivity(homeIntent)
         }
 
@@ -94,15 +94,24 @@ class Profile_Activity : Activity() {
             bookmarkIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             bookmarkIntent.putExtra("USERNAME", username)
             bookmarkIntent.putExtra("EMAIL", email)
-            bookmarkIntent.putExtra("PASSWORD", finalPassword)
+            bookmarkIntent.putExtra("PASSWORD", password)
             startActivity(bookmarkIntent)
+        }
+
+        journalButton.setOnClickListener {
+            val journalIntent = Intent(this, Journal_Activity::class.java)
+            journalIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
+            journalIntent.putExtra("USERNAME", username)
+            journalIntent.putExtra("EMAIL", email)
+            journalIntent.putExtra("PASSWORD", password)
+            startActivity(journalIntent)
         }
 
         editProfileButton.setOnClickListener {
             val editProfileIntent = Intent(this, Edit_Profile_Activity::class.java)
             editProfileIntent.putExtra("USERNAME", username)
             editProfileIntent.putExtra("EMAIL", email)
-            editProfileIntent.putExtra("PASSWORD", finalPassword)
+            editProfileIntent.putExtra("PASSWORD", password)
             startActivityForResult(editProfileIntent, 1001)
         }
 

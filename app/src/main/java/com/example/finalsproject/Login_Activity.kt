@@ -1,6 +1,5 @@
 package com.example.finalsproject
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -11,16 +10,16 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.florasense.data.model.UserModel
 import com.example.florasense.viewModel.UserViewModel
 
 class Login_Activity : AppCompatActivity() {
+
     private val userViewModel: UserViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
 
         val emailEditText = findViewById<EditText>(R.id.emailEdittext)
         val passwordEditText = findViewById<EditText>(R.id.passwordEdittext)
@@ -48,16 +47,17 @@ class Login_Activity : AppCompatActivity() {
                 userViewModel.loginUser(user)
 
                 userViewModel.user.observe(this, Observer { userResponse ->
-                    // Handle successful login
                     if (userResponse != null) {
                         Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                         val mainDashboardIntent = Intent(this, Main_Dashboard_Activity::class.java)
+                        mainDashboardIntent.putExtra("USERNAME", userResponse.username)
+                        mainDashboardIntent.putExtra("EMAIL", userResponse.email)
+                        mainDashboardIntent.putExtra("PASSWORD", userResponse.password)
                         startActivity(mainDashboardIntent)
                     }
                 })
 
                 userViewModel.loginError.observe(this, Observer { errorMessage ->
-                    // Handle login error
                     Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                 })
             }

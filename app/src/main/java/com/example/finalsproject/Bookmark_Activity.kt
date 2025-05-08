@@ -26,6 +26,7 @@ class Bookmark_Activity : Activity() {
         val backButton = findViewById<ImageButton>(R.id.backImageButton)
         val homeButton = findViewById<ImageButton>(R.id.homeImageButton)
         val profileButton = findViewById<ImageButton>(R.id.userImageButton)
+        val journalButton = findViewById<ImageButton>(R.id.journalImageButton)
 
         val username = intent.getStringExtra("USERNAME")
         val email = intent.getStringExtra("EMAIL")
@@ -69,6 +70,15 @@ class Bookmark_Activity : Activity() {
             profileIntent.putExtra("EMAIL", email)
             profileIntent.putExtra("PASSWORD", finalPassword)
             startActivity(profileIntent)
+        }
+
+        journalButton.setOnClickListener {
+            val journalIntent = Intent(this, Journal_Activity::class.java)
+            journalIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
+            journalIntent.putExtra("USERNAME", username)
+            journalIntent.putExtra("EMAIL", email)
+            journalIntent.putExtra("PASSWORD", finalPassword)
+            startActivity(journalIntent)
         }
 
     }

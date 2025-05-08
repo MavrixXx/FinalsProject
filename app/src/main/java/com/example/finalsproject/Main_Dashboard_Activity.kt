@@ -53,15 +53,14 @@ class Main_Dashboard_Activity : Activity() {
 
         val bookmark = findViewById<ImageButton>(R.id.bookmarkImageButton)
         val profile = findViewById<ImageButton>(R.id.userImageButton)
+        val journal = findViewById<ImageButton>(R.id.journalImageButton)
         val explore = findViewById<ImageButton>(R.id.exploreImageButton)
 
         val username = intent.getStringExtra("USERNAME")
         val email = intent.getStringExtra("EMAIL")
         val password = intent.getStringExtra("PASSWORD")
-        val newPassword = intent.getStringExtra("NEW_PASSWORD")
-        bookmarkedPlants = intent.getStringArrayListExtra("bookmarked_plants") ?: ArrayList()
 
-        val finalPassword = newPassword ?: password
+        bookmarkedPlants = intent.getStringArrayListExtra("bookmarked_plants") ?: ArrayList()
 
         moreInfo1.setOnClickListener {
             showPlantInfo("Snake Plant", "Size: 6 to 20 inches tall\n" +
@@ -243,7 +242,7 @@ class Main_Dashboard_Activity : Activity() {
             bookmarkIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             bookmarkIntent.putExtra("USERNAME", username)
             bookmarkIntent.putExtra("EMAIL", email)
-            bookmarkIntent.putExtra("PASSWORD", finalPassword)
+            bookmarkIntent.putExtra("PASSWORD", password)
             startActivity(bookmarkIntent)
         }
 
@@ -252,16 +251,16 @@ class Main_Dashboard_Activity : Activity() {
             profileIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             profileIntent.putExtra("USERNAME", username)
             profileIntent.putExtra("EMAIL", email)
-            profileIntent.putExtra("PASSWORD", finalPassword)
+            profileIntent.putExtra("PASSWORD", password)
             startActivity(profileIntent)
         }
 
-        findViewById<ImageButton>(R.id.journalImageButton).setOnClickListener {
+        journal.setOnClickListener {
             val journalIntent = Intent(this, Journal_Activity::class.java)
             journalIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             journalIntent.putExtra("USERNAME", username)
             journalIntent.putExtra("EMAIL", email)
-            journalIntent.putExtra("PASSWORD", finalPassword)
+            journalIntent.putExtra("PASSWORD", password)
             startActivity(journalIntent)
         }
     }
