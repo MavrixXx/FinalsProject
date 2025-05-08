@@ -11,12 +11,25 @@ class UserViewModel: ViewModel() {
     private val userRepository = UserRepository()
     private val _user = MutableLiveData<UserModel>()
     val user: MutableLiveData<UserModel> = _user
+    private val _loginError = MutableLiveData<String>()
+    val loginError: MutableLiveData<String> = _loginError
 
     fun registerUser(user: UserModel) {
         viewModelScope.launch {
             val response = userRepository.registerUser(user)
             if (response.isSuccessful) {
                 _user.value = response.body()
+            }
+        }
+    }
+
+    fun loginUser(user: UserModel) {
+        viewModelScope.launch {
+            val response = userRepository.loginUser(user)
+            if (response.isSuccessful) {
+                _user.value = response.body()
+            } else {
+                _loginError.value = "Login failed: ${response.message()}"
             }
         }
     }
