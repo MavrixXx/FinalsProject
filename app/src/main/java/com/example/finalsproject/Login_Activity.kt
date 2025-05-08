@@ -8,11 +8,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.florasense.data.model.UserModel
+import com.example.florasense.viewModel.UserViewModel
 
-class Login_Activity : Activity() {
+class Login_Activity : AppCompatActivity() {
+    private val userViewModel: UserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
 
         val emailEditText = findViewById<EditText>(R.id.emailEdittext)
         val passwordEditText = findViewById<EditText>(R.id.passwordEdittext)
@@ -32,18 +40,26 @@ class Login_Activity : Activity() {
             val enteredEmail = emailEditText.text.toString()
             val enteredPassword = passwordEditText.text.toString()
 
-            if (enteredEmail.isEmpty() || enteredPassword.isEmpty()){
+            if (enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
                 Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
-            } else if (enteredEmail != email || enteredPassword != password){
-                Toast.makeText(this, "Incorrect email or password", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-                val mainDashboardIntent = Intent(this, Main_Dashboard_Activity::class.java)
-                mainDashboardIntent.putExtra("USERNAME", username)
-                mainDashboardIntent.putExtra("EMAIL", email)
-                mainDashboardIntent.putExtra("PASSWORD", password)
-                mainDashboardIntent.putExtra("NEW_PASSWORD", newPassword)
-                startActivity(mainDashboardIntent)
+                val user = UserModel(email = enteredEmail, password = enteredPassword, username = "")
+
+                userViewModel.loginUser(user)
+
+                userViewModel.user.observe(this, Observer { userResponse ->
+                    // Handle successful login
+                    if (userResponse != null) {
+                        Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+                        val mainDashboardIntent = Intent(this, Main_Dashboard_Activity::class.java)
+                        startActivity(mainDashboardIntent)
+                    }
+                })
+
+                userViewModel.loginError.observe(this, Observer { errorMessage ->
+                    // Handle login error
+                    Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                })
             }
         }
 
