@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <RadioGroup
+        android:id="@+id/radioGroupType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonNote"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Note"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radioButtonTodo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="To-Do List" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:inputType="text"
+        android:layout_marginBottom="16dp" />
+
+    <!-- This is for Notes only -->
+    <EditText
+        android:id="@+id/editTextContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Content"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:gravity="start|top" />
+
+    <!-- This is for Todo List - initially hidden -->
+    <LinearLayout
+        android:id="@+id/todoListContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <!-- Subtask item container -->
+        <LinearLayout
+            android:id="@+id/subtasksContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Initial subtask item will be added dynamically -->
+
+        </LinearLayout>
+
+        <!-- Add more subtasks button -->
+        <Button
+            android:id="@+id/buttonAddSubtask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="+ Add task"
+            android:textAllCaps="false"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+
+</LinearLayout>
