@@ -87,8 +87,38 @@
             android:layout_centerHorizontal="true"/>
 
         <EditText
-            android:id="@+id/passwordEdittext"
+            android:id="@+id/phoneEdittext"
             android:layout_below="@+id/emailEdittext"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circular_edit_text"
+            android:fontFamily="@font/roboto_font"
+            android:hint="Phone Number"
+            android:textSize="15sp"
+            android:textColorHint="@color/gray"
+            android:paddingLeft="20dp"
+            android:inputType="text"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/addressEdittext"
+            android:layout_below="@+id/phoneEdittext"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circular_edit_text"
+            android:fontFamily="@font/roboto_font"
+            android:hint="Address"
+            android:textSize="15sp"
+            android:textColorHint="@color/gray"
+            android:paddingLeft="20dp"
+            android:inputType="text"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/passwordEdittext"
+            android:layout_below="@+id/addressEdittext"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:background="@drawable/circular_edit_text"

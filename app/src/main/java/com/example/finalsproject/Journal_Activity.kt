@@ -143,7 +143,6 @@ class Journal_Activity : AppCompatActivity() {
         val contentEdit = dialogView.findViewById<EditText>(R.id.editTextContent)
         val radioGroup = dialogView.findViewById<RadioGroup>(R.id.radioGroupType)
         val radioNote = dialogView.findViewById<RadioButton>(R.id.radioButtonNote)
-        val radioTodo = dialogView.findViewById<RadioButton>(R.id.radioButtonTodo)
         val todoListContainer = dialogView.findViewById<LinearLayout>(R.id.todoListContainer)
         val subtasksContainer = dialogView.findViewById<LinearLayout>(R.id.subtasksContainer)
         val addSubtaskButton = dialogView.findViewById<Button>(R.id.buttonAddSubtask)

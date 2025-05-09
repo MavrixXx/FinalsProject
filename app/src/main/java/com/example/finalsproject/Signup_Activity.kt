@@ -25,14 +25,18 @@ class Signup_Activity : AppCompatActivity() {
         val confirmPasswordEditText = findViewById<EditText>(R.id.confirmPasswordEdittext)
         val signupButton = findViewById<Button>(R.id.signupButton)
         val alreadyHaveAccount = findViewById<TextView>(R.id.alreadyHaveAnAccount)
+        val phoneEdittext = findViewById<EditText>(R.id.phoneEdittext)
+        val addressEdittext = findViewById<EditText>(R.id.addressEdittext)
 
         signupButton.setOnClickListener {
             val username = usernameEditText.text.toString()
             val email = emailEditText.text.toString()
+            val phone = phoneEdittext.text.toString()
+            val address = addressEdittext.text.toString()
             val password = passwordEditText.text.toString()
             val confirmPassword = confirmPasswordEditText.text.toString()
 
-            if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            if (username.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
             } else if (!isValidEmail(email)) {
                 Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show()
@@ -47,6 +51,8 @@ class Signup_Activity : AppCompatActivity() {
                 val loginIntent = Intent(this, Login_Activity::class.java)
                 loginIntent.putExtra("USERNAME", username)
                 loginIntent.putExtra("EMAIL", email)
+                loginIntent.putExtra("PHONE", phone)
+                loginIntent.putExtra("ADDRESS", address)
                 loginIntent.putExtra("PASSWORD", password)
                 startActivity(loginIntent)
             }
@@ -55,10 +61,14 @@ class Signup_Activity : AppCompatActivity() {
         alreadyHaveAccount.setOnClickListener {
             val username = intent.getStringExtra("USERNAME")
             val email = intent.getStringExtra("EMAIL")
+            val phone = intent.getStringExtra("PHONE")
+            val address = intent.getStringExtra("ADDRESS")
             val password = intent.getStringExtra("PASSWORD")
             val loginIntent = Intent(this, Login_Activity::class.java)
             loginIntent.putExtra("USERNAME", username)
             loginIntent.putExtra("EMAIL", email)
+            loginIntent.putExtra("PHONE", phone)
+            loginIntent.putExtra("ADDRESS", address)
             loginIntent.putExtra("PASSWORD", password)
             startActivity(loginIntent)
         }
@@ -69,12 +79,16 @@ class Signup_Activity : AppCompatActivity() {
     private fun addUser(){
             val usernameEditText = findViewById<EditText>(R.id.usernameEdittext).text.toString()
             val emailEditText = findViewById<EditText>(R.id.emailEdittext).text.toString()
+            val phoneEditText = findViewById<EditText>(R.id.phoneEdittext).text.toString()
+            val addressEditText = findViewById<EditText>(R.id.addressEdittext).text.toString()
             val passwordEditText = findViewById<EditText>(R.id.passwordEdittext).text.toString()
             val confirmPasswordEditText = findViewById<EditText>(R.id.confirmPasswordEdittext).text.toString()
 
             val user = UserModel(
                 username = usernameEditText,
                 email = emailEditText,
+                phone = phoneEditText,
+                address = addressEditText,
                 password = passwordEditText,
                 confirmPassword = confirmPasswordEditText
             )
