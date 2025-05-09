@@ -52,7 +52,7 @@ class Login_Activity : AppCompatActivity() {
                         val mainDashboardIntent = Intent(this, Main_Dashboard_Activity::class.java)
                         mainDashboardIntent.putExtra("USERNAME", userResponse.username)
                         mainDashboardIntent.putExtra("EMAIL", userResponse.email)
-                        mainDashboardIntent.putExtra("PASSWORD", userResponse.password)
+                        mainDashboardIntent.putExtra("PASSWORD", enteredPassword)
                         startActivity(mainDashboardIntent)
                     }
                 })

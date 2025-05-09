@@ -48,8 +48,7 @@ class Profile_Activity : Activity() {
         updatedPhone = intent.getStringExtra("PHONE") ?: ""
         updatedUsername = intent.getStringExtra("USERNAME") ?: ""
         updatedAddress = intent.getStringExtra("ADDRESS") ?: ""
-
-
+        
         usernameTextView.text = username ?: "Guest"
         emailTextView.text = email ?: "sample@email.com"
         usernameInfoText.text = username ?: "enter username"
