@@ -9,17 +9,8 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
-import com.example.florasense.data.model.UserModel
-import com.example.florasense.data.repository.UserRepository
-import com.example.florasense.viewModel.UserViewModel
 
-class Profile_Activity : AppCompatActivity() {
-
-    private lateinit var userRepository: UserRepository
-    private val userViewModel: UserViewModel by viewModels()
+class Profile_Activity : Activity() {
 
     private lateinit var bookmarkedPlants: ArrayList<String>
     private lateinit var updatedPassword: String
@@ -31,7 +22,6 @@ class Profile_Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-
 
         val backButton = findViewById<ImageButton>(R.id.backImageButton)
         val settingsButton = findViewById<ImageButton>(R.id.settingsImageButton)
@@ -58,12 +48,12 @@ class Profile_Activity : AppCompatActivity() {
         updatedPhone = intent.getStringExtra("PHONE") ?: ""
         updatedUsername = intent.getStringExtra("USERNAME") ?: ""
         updatedAddress = intent.getStringExtra("ADDRESS") ?: ""
-        
+
         usernameTextView.text = username ?: "Guest"
         emailTextView.text = email ?: "sample@email.com"
         usernameInfoText.text = username ?: "enter username"
         emailInfoText.text = email ?: "enter email"
-        passwordTextView.text = password?: "enter password"
+        passwordTextView.text = generateAsterisksForPassword(password)
 
         val initialProfileImageUri = intent.getStringExtra("PROFILE_IMAGE_URI")
         if (initialProfileImageUri != null) {
@@ -130,14 +120,13 @@ class Profile_Activity : AppCompatActivity() {
 
     }
 
-//    private fun generateAsterisksForPassword(password: String?): String {
-//        return if (!password.isNullOrEmpty()) {
-//            "*".repeat(password.length)
-//        } else {
-//            "No password set"
-//        }
-//    }
-
+    private fun generateAsterisksForPassword(password: String?): String {
+        return if (!password.isNullOrEmpty()) {
+            "*".repeat(password.length)
+        } else {
+            "No password set"
+        }
+    }
 
     private fun showLogoutConfirmationDialog() {
         val builder = AlertDialog.Builder(this)
@@ -170,7 +159,7 @@ class Profile_Activity : AppCompatActivity() {
             val updatedEmail = data?.getStringExtra("UPDATED_EMAIL")
             val updatedPhone = data?.getStringExtra("UPDATED_PHONE")
             val updatedAddress = data?.getStringExtra("UPDATED_ADDRESS")
-            val updatedPassword = data?.getStringExtra("UPDATED_PASSWORD") ?: "No password set"
+            val updatedPassword = data?.getStringExtra("UPDATED_PASSWORD")
             val updatedProfileImageUri = data?.getStringExtra("UPDATED_PROFILE_IMAGE")
 
             usernameTextView.text = updatedUsername
@@ -179,8 +168,8 @@ class Profile_Activity : AppCompatActivity() {
             emailInfoText.text = updatedEmail
             phoneInfoText.text = updatedPhone
             addressInfoText.text = updatedAddress
-
-            passwordTextView.text = "*".repeat(updatedPassword.length)
+            passwordTextView.text = updatedPassword
+            passwordTextView.text = generateAsterisksForPassword(updatedPassword)
 
             updatedProfileImageUri?.let {
                 val uri = Uri.parse(it)
@@ -188,5 +177,4 @@ class Profile_Activity : AppCompatActivity() {
             }
         }
     }
-
 }
