@@ -3,6 +3,7 @@ package com.example.finalsproject
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -61,6 +62,11 @@ class Main_Dashboard_Activity : Activity() {
         val phone = intent.getStringExtra("PHONE")
         val address = intent.getStringExtra("ADDRESS")
         val password = intent.getStringExtra("PASSWORD")
+
+        Log.d("DEBUG_DATA", "Phone: $phone")
+        Log.d("DEBUG_DATA", "Address: $address")
+        Log.d("DEBUG_DATA", "Username: $username")
+
 
         bookmarkedPlants = intent.getStringArrayListExtra("bookmarked_plants") ?: ArrayList()
 
