@@ -29,6 +29,8 @@ class Login_Activity : AppCompatActivity() {
 
         val username = intent.getStringExtra("USERNAME")
         val email = intent.getStringExtra("EMAIL")
+        val phone = intent.getStringExtra("PHONE")
+        val address = intent.getStringExtra("ADDRESS")
         var password = intent.getStringExtra("PASSWORD")
         val newPassword = intent.getStringExtra("NEW_PASSWORD")
         if (newPassword != null) {
@@ -39,10 +41,11 @@ class Login_Activity : AppCompatActivity() {
             val enteredEmail = emailEditText.text.toString()
             val enteredPassword = passwordEditText.text.toString()
 
+
             if (enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
                 Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
             } else {
-                val user = UserModel(email = enteredEmail, password = enteredPassword, username = "")
+                val user = UserModel(email = enteredEmail, password = enteredPassword, username = "", phone = "", address = "")
 
                 userViewModel.loginUser(user)
 
@@ -53,6 +56,8 @@ class Login_Activity : AppCompatActivity() {
                         mainDashboardIntent.putExtra("USERNAME", userResponse.username)
                         mainDashboardIntent.putExtra("EMAIL", userResponse.email)
                         mainDashboardIntent.putExtra("PASSWORD", enteredPassword)
+                        mainDashboardIntent.putExtra("PHONE", userResponse.phone)
+                        mainDashboardIntent.putExtra("ADDRESS", userResponse.address)
                         startActivity(mainDashboardIntent)
                     }
                 })

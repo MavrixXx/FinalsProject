@@ -58,6 +58,8 @@ class Main_Dashboard_Activity : Activity() {
 
         val username = intent.getStringExtra("USERNAME")
         val email = intent.getStringExtra("EMAIL")
+        val phone = intent.getStringExtra("PHONE")
+        val address = intent.getStringExtra("ADDRESS")
         val password = intent.getStringExtra("PASSWORD")
 
         bookmarkedPlants = intent.getStringArrayListExtra("bookmarked_plants") ?: ArrayList()
@@ -251,6 +253,8 @@ class Main_Dashboard_Activity : Activity() {
             profileIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             profileIntent.putExtra("USERNAME", username)
             profileIntent.putExtra("EMAIL", email)
+            profileIntent.putExtra("PHONE", phone)
+            profileIntent.putExtra("ADDRESS", address)
             profileIntent.putExtra("PASSWORD", password)
             startActivity(profileIntent)
         }

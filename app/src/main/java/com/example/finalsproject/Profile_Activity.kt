@@ -37,9 +37,13 @@ class Profile_Activity : Activity() {
         val emailInfoText = findViewById<TextView>(R.id.emailInfoText)
         val editProfileButton = findViewById<Button>(R.id.editProfileButton)
         val profilePicture = findViewById<ImageView>(R.id.profilePicture)
+        val phoneInfoText = findViewById<TextView>(R.id.phoneNumberInfoText)
+        val addressInfoText = findViewById<TextView>(R.id.addressInfoText)
 
         val username = intent.getStringExtra("USERNAME")
         val email = intent.getStringExtra("EMAIL")
+        val phone = intent.getStringExtra("PHONE")
+        val address = intent.getStringExtra("ADDRESS")
         val password = intent.getStringExtra("PASSWORD")
 
         bookmarkedPlants = intent.getStringArrayListExtra("bookmarked_plants") ?: ArrayList()
@@ -53,6 +57,8 @@ class Profile_Activity : Activity() {
         emailTextView.text = email ?: "sample@email.com"
         usernameInfoText.text = username ?: "enter username"
         emailInfoText.text = email ?: "enter email"
+        phoneInfoText.text = phone ?: "enter phone number"
+        addressInfoText.text = address ?: "enter address"
         passwordTextView.text = generateAsterisksForPassword(password)
 
         val initialProfileImageUri = intent.getStringExtra("PROFILE_IMAGE_URI")
