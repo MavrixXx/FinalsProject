@@ -82,7 +82,6 @@ class Signup_Activity : AppCompatActivity() {
             val phoneEditText = findViewById<EditText>(R.id.phoneEdittext).text.toString()
             val addressEditText = findViewById<EditText>(R.id.addressEdittext).text.toString()
             val passwordEditText = findViewById<EditText>(R.id.passwordEdittext).text.toString()
-            val confirmPasswordEditText = findViewById<EditText>(R.id.confirmPasswordEdittext).text.toString()
 
             val user = UserModel(
                 username = usernameEditText,
@@ -90,7 +89,6 @@ class Signup_Activity : AppCompatActivity() {
                 phone = phoneEditText,
                 address = addressEditText,
                 password = passwordEditText,
-                confirmPassword = confirmPasswordEditText
             )
 
             userViewModel.registerUser(user)
