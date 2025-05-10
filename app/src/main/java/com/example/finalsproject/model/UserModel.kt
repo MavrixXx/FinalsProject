@@ -8,5 +8,10 @@ data class UserModel(
     val address: String,
     val password: String,
     val confirmPassword: String? = null
+)
 
+data class UpdateUserResponse(
+    val success: Boolean,
+    val message: String,
+    val user: UserModel
 )

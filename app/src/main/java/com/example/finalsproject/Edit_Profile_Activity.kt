@@ -1,25 +1,43 @@
 package com.example.finalsproject
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.util.Log
+import android.widget.*
+import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import android.Manifest
-import android.graphics.Bitmap
-import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.example.florasense.data.model.UserModel
+import com.example.florasense.viewModel.UserViewModel
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
+import retrofit2.http.PUT
+import retrofit2.Response
 import java.io.IOException
 
-class Edit_Profile_Activity : Activity() {
+private var currentUsername: String = ""
+private var currentEmail: String = ""
+private var currentPhone: String = ""
+private var currentAddress: String = ""
+private var currentPassword: String = ""
+
+class Edit_Profile_Activity : AppCompatActivity() {
 
     private var selectedImageUri: Uri? = null
+    private val userViewModel: UserViewModel by viewModels()
 
     companion object {
         private const val IMAGE_REQUEST_CODE = 1001
@@ -39,6 +57,24 @@ class Edit_Profile_Activity : Activity() {
         val addressEditText = findViewById<EditText>(R.id.editAddress)
         val passwordEditText = findViewById<EditText>(R.id.editPassword)
         val saveButton = findViewById<Button>(R.id.saveButton)
+
+        currentUsername = intent.getStringExtra("USERNAME") ?: ""
+        currentEmail = intent.getStringExtra("EMAIL") ?: ""
+        currentPhone = intent.getStringExtra("PHONE") ?: ""
+        currentAddress = intent.getStringExtra("ADDRESS") ?: ""
+        currentPassword = intent.getStringExtra("PASSWORD") ?: ""
+
+
+        userViewModel.user.observe(this, Observer { updatedUser ->
+            // Handle successful update (update UI or inform user)
+            Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+            finish()  // Optional: Close the activity or return the updated data
+        })
+
+        userViewModel.updateError.observe(this, Observer { error ->
+            // Handle error
+            Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+        })
 
         profileImage.setOnClickListener {
             showImageSourceDialog()
@@ -193,11 +229,13 @@ class Edit_Profile_Activity : Activity() {
         addressEditText: EditText,
         passwordEditText: EditText
     ) {
-        val currentUsername = intent.getStringExtra("USERNAME") ?: ""
-        val currentEmail = intent.getStringExtra("EMAIL") ?: ""
-        val currentPhone = intent.getStringExtra("PHONE") ?: ""
-        val currentAddress = intent.getStringExtra("ADDRESS") ?: ""
-        val currentPassword = intent.getStringExtra("PASSWORD") ?: ""
+        currentUsername = if (usernameEditText.text.isNullOrEmpty()) currentUsername else usernameEditText.text.toString()
+        currentEmail = if (emailEditText.text.isNullOrEmpty()) currentEmail else emailEditText.text.toString()
+        currentPhone = if (phoneEditText.text.isNullOrEmpty()) currentPhone else phoneEditText.text.toString()
+        currentAddress = if (addressEditText.text.isNullOrEmpty()) currentAddress else addressEditText.text.toString()
+        currentPassword = if (passwordEditText.text.isNullOrEmpty()) currentPassword else passwordEditText.text.toString()
+
+        Log.d("Username", "Username: $currentUsername")
 
         val updatedUsername = if (usernameEditText.text.isNullOrEmpty()) currentUsername else usernameEditText.text.toString()
         val updatedEmail = if (emailEditText.text.isNullOrEmpty()) currentEmail else emailEditText.text.toString()
@@ -212,11 +250,20 @@ class Edit_Profile_Activity : Activity() {
         resultIntent.putExtra("UPDATED_ADDRESS", updatedAddress)
         resultIntent.putExtra("UPDATED_PASSWORD", updatedPassword)
 
+        val updatedUser = UserModel(
+            username = updatedUsername,
+            email = updatedEmail,
+            password = updatedPassword,
+            phone = updatedPhone,
+            address = updatedAddress
+        )
+
         selectedImageUri?.let {
             resultIntent.putExtra("UPDATED_PROFILE_IMAGE", it.toString())
         }
 
         setResult(RESULT_OK, resultIntent)
+        userViewModel.updateUser(updatedUser)
         finish()
     }
 }
