@@ -7,8 +7,6 @@ data class UserModel(
     val phone: String,
     val address: String,
     val password: String,
-
-
 )
 
 data class UpdateUserResponse(
@@ -16,5 +14,7 @@ data class UpdateUserResponse(
     val message: String,
     val user: UserModel
 )
+
+
 
 

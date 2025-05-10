@@ -4,8 +4,10 @@ import com.example.florasense.data.model.UpdateUserResponse
 import com.example.florasense.data.model.UserModel
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface ApiService {
     @POST("users")
@@ -16,6 +18,9 @@ interface ApiService {
 
     @PUT("users/update")
     suspend fun updateUser(@Body user: UserModel): Response<UpdateUserResponse>
+
+    @GET("users/fetch/{userId}")
+    suspend fun fetchUser(@Path("userId") userId: String): Response<UserModel>
 }
 
 
