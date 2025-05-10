@@ -1,25 +1,36 @@
 package com.example.finalsproject
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
+import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import android.Manifest
-import android.graphics.Bitmap
-import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.example.florasense.data.model.UserModel
+import com.example.florasense.viewModel.UserViewModel
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
+import retrofit2.http.PUT
+import retrofit2.Response
 import java.io.IOException
 
-class Edit_Profile_Activity : Activity() {
+class Edit_Profile_Activity : AppCompatActivity() {
 
     private var selectedImageUri: Uri? = null
+    private val userViewModel: UserViewModel by viewModels()
 
     companion object {
         private const val IMAGE_REQUEST_CODE = 1001
@@ -30,7 +41,7 @@ class Edit_Profile_Activity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
-        checkPermissions()
+        var userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         val profileImage = findViewById<ImageView>(R.id.profileImageView)
         val usernameEditText = findViewById<EditText>(R.id.editUsername)
@@ -40,12 +51,26 @@ class Edit_Profile_Activity : Activity() {
         val passwordEditText = findViewById<EditText>(R.id.editPassword)
         val saveButton = findViewById<Button>(R.id.saveButton)
 
-        profileImage.setOnClickListener {
-            showImageSourceDialog()
-        }
+        // Observe updates
+        userViewModel.user.observe(this, Observer { updatedUser ->
+            // Handle successful update (update UI or inform user)
+            Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+            finish()  // Optional: Close the activity or return the updated data
+        })
 
+        userViewModel.updateError.observe(this, Observer { error ->
+            // Handle error
+            Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+        })
+
+        // Handle profile image change
+        profileImage.setOnClickListener { showImageSourceDialog() }
+
+        // Handle save button click
         saveButton.setOnClickListener {
-            showConfirmationDialog(usernameEditText, emailEditText, phoneEditText, addressEditText, passwordEditText)
+            showConfirmationDialog(
+                usernameEditText, emailEditText, phoneEditText, addressEditText, passwordEditText
+            )
         }
     }
 
@@ -78,7 +103,6 @@ class Edit_Profile_Activity : Activity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (resultCode == RESULT_OK) {
             try {
                 if (requestCode == IMAGE_REQUEST_CODE && data != null) {
@@ -105,21 +129,16 @@ class Edit_Profile_Activity : Activity() {
 
     private fun updateProfileImage() {
         val profileImage = findViewById<ImageView>(R.id.profileImageView)
-
         val sizeInPx = dpToPx(150)
 
         selectedImageUri?.let { uri ->
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
-
                 val croppedBitmap = getCroppedBitmap(bitmap, sizeInPx)
                 val resizedBitmap = Bitmap.createScaledBitmap(croppedBitmap, sizeInPx, sizeInPx, false)
                 profileImage.setImageBitmap(resizedBitmap)
                 val croppedImageUri = getImageUriFromBitmap(resizedBitmap)
-
                 selectedImageUri = croppedImageUri
-
-
             } catch (e: IOException) {
                 Toast.makeText(this, "Error loading image: ${e.message}", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
@@ -130,28 +149,15 @@ class Edit_Profile_Activity : Activity() {
     private fun getCroppedBitmap(bitmap: Bitmap, size: Int): Bitmap {
         val width = bitmap.width
         val height = bitmap.height
-
         val newEdge = minOf(width, height)
-
         val startX = (width - newEdge) / 2
         val startY = (height - newEdge) / 2
-
         val squareBitmap = Bitmap.createBitmap(bitmap, startX, startY, newEdge, newEdge)
-
         return Bitmap.createScaledBitmap(squareBitmap, size, size, true)
     }
 
     private fun dpToPx(dp: Int): Int {
         return (dp * resources.displayMetrics.density).toInt()
-    }
-
-    private fun checkPermissions() {
-        val cameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-        val storagePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-
-        if (cameraPermission != PackageManager.PERMISSION_GRANTED || storagePermission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE), 123)
-        }
     }
 
     private fun showConfirmationDialog(
@@ -167,9 +173,7 @@ class Edit_Profile_Activity : Activity() {
         builder.setPositiveButton("Yes") { _, _ ->
             saveChanges(usernameEditText, emailEditText, phoneEditText, addressEditText, passwordEditText)
         }
-        builder.setNegativeButton("No") { dialog, _ ->
-            dialog.dismiss()
-        }
+        builder.setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
         builder.create().show()
     }
 
@@ -180,28 +184,29 @@ class Edit_Profile_Activity : Activity() {
         addressEditText: EditText,
         passwordEditText: EditText
     ) {
+        // Collect current data (from previous activity or intent)
         val currentUsername = intent.getStringExtra("USERNAME") ?: ""
         val currentEmail = intent.getStringExtra("EMAIL") ?: ""
         val currentPassword = intent.getStringExtra("PASSWORD") ?: ""
 
+        // Gather updated data
         val updatedUsername = if (usernameEditText.text.isNullOrEmpty()) currentUsername else usernameEditText.text.toString()
         val updatedEmail = if (emailEditText.text.isNullOrEmpty()) currentEmail else emailEditText.text.toString()
-        val updatedPhone = if (phoneEditText.text.isNullOrEmpty()) "enter phone number" else phoneEditText.text.toString()
-        val updatedAddress = if (addressEditText.text.isNullOrEmpty()) "enter address" else addressEditText.text.toString()
+        val updatedPhone = if (phoneEditText.text.isNullOrEmpty()) "Enter phone number" else phoneEditText.text.toString()
+        val updatedAddress = if (addressEditText.text.isNullOrEmpty()) "Enter address" else addressEditText.text.toString()
         val updatedPassword = if (passwordEditText.text.isNullOrEmpty()) currentPassword else passwordEditText.text.toString()
 
-        val resultIntent = Intent()
-        resultIntent.putExtra("UPDATED_USERNAME", updatedUsername)
-        resultIntent.putExtra("UPDATED_EMAIL", updatedEmail)
-        resultIntent.putExtra("UPDATED_PHONE", updatedPhone)
-        resultIntent.putExtra("UPDATED_ADDRESS", updatedAddress)
-        resultIntent.putExtra("UPDATED_PASSWORD", updatedPassword)
+        // Create user model for update
+        val updatedUser = UserModel(
+            username = updatedUsername,
+            email = updatedEmail,
+            password = updatedPassword,
+            phone = updatedPhone,
+            address = updatedAddress
+        )
 
-        selectedImageUri?.let {
-            resultIntent.putExtra("UPDATED_PROFILE_IMAGE", it.toString())
-        }
-
-        setResult(RESULT_OK, resultIntent)
-        finish()
+        // Trigger ViewModel to handle update logic
+        userViewModel.updateUser(updatedUser)
     }
 }
+
