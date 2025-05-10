@@ -10,3 +10,11 @@ data class UserModel(
     val confirmPassword: String? = null
 
 )
+
+data class UpdateUserResponse(
+    val success: Boolean,
+    val message: String,
+    val user: UserModel
+)
+
+
