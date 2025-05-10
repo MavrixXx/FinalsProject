@@ -18,46 +18,20 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:padding="20dp"
+        android:textAlignment="center"
         android:background="@drawable/rounded_gray_background_upsidedown"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <ImageButton
-        android:id="@+id/notificationsImageButton"
-        android:layout_toRightOf="@id/floraSenseText3"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/notification_icon"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/floraSenseText3"/>
-
-    <EditText
-        android:id="@+id/searchBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/circular_edit_text"
-        android:hint="Search..."
-        android:textColorHint="@color/gray"
-        android:textSize="15sp"
-        android:paddingLeft="20dp"
-        app:layout_constraintTop_toBottomOf="@id/floraSenseText3"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-
     <RelativeLayout
         android:id="@+id/triviaBox"
-        android:layout_below="@+id/searchBar"
+        android:layout_below="@+id/floraSenseText3"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/blurred_leaf_background"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar"
+        app:layout_constraintTop_toBottomOf="@+id/floraSenseText3"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent">
 
@@ -94,9 +68,9 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="580dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_height="680dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintTop_toBottomOf="@id/triviaBox">
         
         <RelativeLayout
@@ -106,7 +80,7 @@
 
             <RelativeLayout
                 android:id="@+id/plantOne"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_white_background"
                 android:padding="20dp"
@@ -135,7 +109,7 @@
                 <Button
                     android:id="@+id/informationButtonSnakePlant"
                     android:layout_below="@id/snakePlantText"
-                    android:layout_toRightOf="@id/snakePlantImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="35dp"
@@ -147,7 +121,7 @@
                 <Button
                     android:id="@+id/bookmarkButtonSnakePlant"
                     android:layout_below="@id/informationButtonSnakePlant"
-                    android:layout_toRightOf="@id/snakePlantImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="15dp"
@@ -162,7 +136,7 @@
             <RelativeLayout
                 android:id="@+id/plantTwo"
                 android:layout_below="@id/plantOne"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_white_background"
@@ -192,7 +166,7 @@
                 <Button
                     android:id="@+id/informationButtonMonsteraPlant"
                     android:layout_below="@id/monsteraPlantText"
-                    android:layout_toRightOf="@id/monsteraPlantImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="35dp"
@@ -204,7 +178,7 @@
                 <Button
                     android:id="@+id/bookmarkButtonMonsteraPlant"
                     android:layout_below="@id/informationButtonMonsteraPlant"
-                    android:layout_toRightOf="@id/monsteraPlantImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="15dp"
@@ -219,7 +193,7 @@
             <RelativeLayout
                 android:id="@+id/plantThree"
                 android:layout_below="@id/plantTwo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_white_background"
@@ -254,7 +228,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="21dp"
                     android:layout_marginTop="37dp"
-                    android:layout_toRightOf="@id/falseShamrockImage"
+                    android:layout_alignParentRight="true"
                     android:background="@drawable/rounded_silver_background"
                     android:text="More Information"
                     android:textSize="10sp" />
@@ -262,7 +236,7 @@
                 <Button
                     android:id="@+id/bookmarkButtonFalseShamrock"
                     android:layout_below="@id/informationButtonFalseShamrock"
-                    android:layout_toRightOf="@id/falseShamrockImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="15dp"
@@ -277,7 +251,7 @@
             <RelativeLayout
                 android:id="@+id/plantFour"
                 android:layout_below="@id/plantThree"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_white_background"
@@ -307,7 +281,7 @@
                 <Button
                     android:id="@+id/informationButtonBarrelCactus"
                     android:layout_below="@id/barrelCactusText"
-                    android:layout_toRightOf="@id/barrelCactusImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="35dp"
@@ -319,7 +293,7 @@
                 <Button
                     android:id="@+id/bookmarkButtonBarrelCactus"
                     android:layout_below="@id/informationButtonBarrelCactus"
-                    android:layout_toRightOf="@id/barrelCactusImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="15dp"
@@ -334,7 +308,7 @@
             <RelativeLayout
                 android:id="@+id/plantFive"
                 android:layout_below="@id/plantFour"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_white_background"
@@ -364,7 +338,7 @@
                 <Button
                     android:id="@+id/informationButtonArecaPalm"
                     android:layout_below="@id/arecaPalmText"
-                    android:layout_toRightOf="@id/arecaPalmImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="35dp"
@@ -376,7 +350,7 @@
                 <Button
                     android:id="@+id/bookmarkButtonArecaPalm"
                     android:layout_below="@id/informationButtonArecaPalm"
-                    android:layout_toRightOf="@id/arecaPalmImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="15dp"
@@ -391,7 +365,7 @@
             <RelativeLayout
                 android:id="@+id/plantSix"
                 android:layout_below="@id/plantFive"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_white_background"
@@ -421,7 +395,7 @@
                 <Button
                     android:id="@+id/informationButtonSwordFern"
                     android:layout_below="@id/swordFernText"
-                    android:layout_toRightOf="@id/swordFernImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="35dp"
@@ -433,7 +407,7 @@
                 <Button
                     android:id="@+id/bookmarkButtonSwordFern"
                     android:layout_below="@id/informationButtonSwordFern"
-                    android:layout_toRightOf="@id/swordFernImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="15dp"
@@ -448,7 +422,7 @@
         <RelativeLayout
             android:id="@+id/plantSeven"
             android:layout_below="@id/plantSix"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/rounded_white_background"
@@ -478,7 +452,7 @@
             <Button
                 android:id="@+id/informationButtonYuccaPlant"
                 android:layout_below="@id/yuccaPlantText"
-                android:layout_toRightOf="@id/yuccaPlantImage"
+                android:layout_alignParentRight="true"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="35dp"
@@ -490,7 +464,7 @@
             <Button
                 android:id="@+id/bookmarkButtonYuccaPlant"
                 android:layout_below="@id/informationButtonYuccaPlant"
-                android:layout_toRightOf="@id/yuccaPlantImage"
+                android:layout_alignParentRight="true"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
@@ -505,7 +479,7 @@
         <RelativeLayout
             android:id="@+id/plantEight"
             android:layout_below="@id/plantSeven"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/rounded_white_background"
@@ -535,7 +509,7 @@
             <Button
                 android:id="@+id/informationButtonAloeVera"
                 android:layout_below="@id/aloeVeraText"
-                android:layout_toRightOf="@id/aloeVeraImage"
+                android:layout_alignParentRight="true"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="35dp"
@@ -547,7 +521,7 @@
             <Button
                 android:id="@+id/bookmarkButtonAloeVera"
                 android:layout_below="@id/informationButtonAloeVera"
-                android:layout_toRightOf="@id/aloeVeraImage"
+                android:layout_alignParentRight="true"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
@@ -562,7 +536,7 @@
             <RelativeLayout
                 android:id="@+id/plantNine"
                 android:layout_below="@id/plantEight"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_white_background"
@@ -592,7 +566,7 @@
                 <Button
                     android:id="@+id/informationButtonPaintersPalette"
                     android:layout_below="@id/paintersPaletteText"
-                    android:layout_toRightOf="@id/paintersPaletteImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="35dp"
@@ -604,7 +578,7 @@
                 <Button
                     android:id="@+id/bookmarkButtonPaintersPalette"
                     android:layout_below="@id/informationButtonPaintersPalette"
-                    android:layout_toRightOf="@id/paintersPaletteImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="15dp"
@@ -619,7 +593,7 @@
             <RelativeLayout
                 android:id="@+id/plantTen"
                 android:layout_below="@id/plantNine"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_white_background"
@@ -649,7 +623,7 @@
                 <Button
                     android:id="@+id/informationButtonBunnyEarsCactus"
                     android:layout_below="@id/bunnyEarsCactusText"
-                    android:layout_toRightOf="@id/bunnyEarsCactusImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="35dp"
@@ -661,7 +635,7 @@
                 <Button
                     android:id="@+id/bookmarkButtonBunnyEarsCactus"
                     android:layout_below="@id/informationButtonBunnyEarsCactus"
-                    android:layout_toRightOf="@id/bunnyEarsCactusImage"
+                    android:layout_alignParentRight="true"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="15dp"
@@ -717,15 +691,6 @@
             android:layout_weight="1"
             android:layout_margin="25dp"
             android:background="@drawable/home_icon"
-            android:layout_gravity="center"/>
-
-        <ImageButton
-            android:id="@+id/exploreImageButton"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_weight="1"
-            android:layout_margin="25dp"
-            android:background="@drawable/explore_icon"
             android:layout_gravity="center"/>
 
         <ImageButton

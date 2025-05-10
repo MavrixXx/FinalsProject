@@ -20,14 +20,18 @@ class Developers_Activity : Activity() {
 
         val username = intent.getStringExtra("USERNAME")
         val email = intent.getStringExtra("EMAIL")
+        val phone = intent.getStringExtra("PHONE")
+        val address = intent.getStringExtra("ADDRESS")
         val finalPassword = intent.getStringExtra("PASSWORD")
         bookmarkedPlants = intent.getStringArrayListExtra("bookmarked_plants") ?: ArrayList()
 
         backButton.setOnClickListener {
-            val backIntent = Intent(this, Profile_Activity::class.java)
+            val backIntent = Intent(this, Settings_Activity::class.java)
             backIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             backIntent.putExtra("USERNAME", username)
             backIntent.putExtra("EMAIL", email)
+            backIntent.putExtra("PHONE", phone)
+            backIntent.putExtra("ADDRESS", address)
             backIntent.putExtra("PASSWORD", finalPassword)
             startActivity(backIntent)
         }
@@ -37,6 +41,8 @@ class Developers_Activity : Activity() {
             homeIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             homeIntent.putExtra("USERNAME", username)
             homeIntent.putExtra("EMAIL", email)
+            homeIntent.putExtra("PHONE", phone)
+            homeIntent.putExtra("ADDRESS", address)
             homeIntent.putExtra("PASSWORD", finalPassword)
             startActivity(homeIntent)
         }
@@ -46,6 +52,8 @@ class Developers_Activity : Activity() {
             profileIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             profileIntent.putExtra("USERNAME", username)
             profileIntent.putExtra("EMAIL", email)
+            profileIntent.putExtra("PHONE", phone)
+            profileIntent.putExtra("ADDRESS", address)
             profileIntent.putExtra("PASSWORD", finalPassword)
             startActivity(profileIntent)
         }
@@ -55,6 +63,8 @@ class Developers_Activity : Activity() {
             bookmarkIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             bookmarkIntent.putExtra("USERNAME", username)
             bookmarkIntent.putExtra("EMAIL", email)
+            bookmarkIntent.putExtra("PHONE", phone)
+            bookmarkIntent.putExtra("ADDRESS", address)
             bookmarkIntent.putExtra("PASSWORD", finalPassword)
             startActivity(bookmarkIntent)
         }

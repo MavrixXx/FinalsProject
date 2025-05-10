@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.InputType
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -39,6 +40,11 @@ class Profile_Activity : Activity() {
         val profilePicture = findViewById<ImageView>(R.id.profilePicture)
         val phoneInfoText = findViewById<TextView>(R.id.phoneNumberInfoText)
         val addressInfoText = findViewById<TextView>(R.id.addressInfoText)
+        val passwordInfoText = findViewById<TextView>(R.id.passwordInfoText)
+        val supportNextButton = findViewById<ImageButton>(R.id.nextIcon1)
+        val policyNextButton = findViewById<ImageButton>(R.id.nextIcon2)
+        val eyeToggle = findViewById<ImageView>(R.id.eyeToggle)
+        var isPasswordVisible = false
 
         val username = intent.getStringExtra("USERNAME")
         val email = intent.getStringExtra("EMAIL")
@@ -59,7 +65,7 @@ class Profile_Activity : Activity() {
         emailInfoText.text = email ?: "enter email"
         phoneInfoText.text = phone ?: "enter phone number"
         addressInfoText.text = address ?: "enter address"
-        passwordTextView.text = generateAsterisksForPassword(password)
+        passwordTextView.text = password ?: "123456"
 
         val initialProfileImageUri = intent.getStringExtra("PROFILE_IMAGE_URI")
         if (initialProfileImageUri != null) {
@@ -67,11 +73,16 @@ class Profile_Activity : Activity() {
             profilePicture.setImageURI(uri)
         }
 
+        passwordInfoText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        eyeToggle.setImageResource(R.drawable.eye_open_icon)
+
         backButton.setOnClickListener {
             val backIntent = Intent(this, Main_Dashboard_Activity::class.java)
             backIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             backIntent.putExtra("USERNAME", username)
             backIntent.putExtra("EMAIL", email)
+            backIntent.putExtra("PHONE", phone)
+            backIntent.putExtra("ADDRESS", address)
             backIntent.putExtra("PASSWORD", password)
             startActivity(backIntent)
         }
@@ -81,6 +92,8 @@ class Profile_Activity : Activity() {
             settingsIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             settingsIntent.putExtra("USERNAME", username)
             settingsIntent.putExtra("EMAIL", email)
+            settingsIntent.putExtra("PHONE", phone)
+            settingsIntent.putExtra("ADDRESS", address)
             settingsIntent.putExtra("PASSWORD", password)
             startActivity(settingsIntent)
         }
@@ -90,6 +103,8 @@ class Profile_Activity : Activity() {
             homeIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             homeIntent.putExtra("USERNAME", username)
             homeIntent.putExtra("EMAIL", email)
+            homeIntent.putExtra("PHONE", phone)
+            homeIntent.putExtra("ADDRESS", address)
             homeIntent.putExtra("PASSWORD", password)
             startActivity(homeIntent)
         }
@@ -99,6 +114,8 @@ class Profile_Activity : Activity() {
             bookmarkIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             bookmarkIntent.putExtra("USERNAME", username)
             bookmarkIntent.putExtra("EMAIL", email)
+            bookmarkIntent.putExtra("PHONE", phone)
+            bookmarkIntent.putExtra("ADDRESS", address)
             bookmarkIntent.putExtra("PASSWORD", password)
             startActivity(bookmarkIntent)
         }
@@ -108,6 +125,8 @@ class Profile_Activity : Activity() {
             journalIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             journalIntent.putExtra("USERNAME", username)
             journalIntent.putExtra("EMAIL", email)
+            journalIntent.putExtra("PHONE", phone)
+            journalIntent.putExtra("ADDRESS", address)
             journalIntent.putExtra("PASSWORD", password)
             startActivity(journalIntent)
         }
@@ -116,8 +135,28 @@ class Profile_Activity : Activity() {
             val editProfileIntent = Intent(this, Edit_Profile_Activity::class.java)
             editProfileIntent.putExtra("USERNAME", username)
             editProfileIntent.putExtra("EMAIL", email)
+            editProfileIntent.putExtra("PHONE", phone)
+            editProfileIntent.putExtra("ADDRESS", address)
             editProfileIntent.putExtra("PASSWORD", password)
             startActivityForResult(editProfileIntent, 1001)
+        }
+
+        eyeToggle.setOnClickListener {
+            if (isPasswordVisible) {
+                eyeToggle.setImageResource(R.drawable.eye_open_icon)
+                passwordInfoText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            } else {
+                eyeToggle.setImageResource(R.drawable.eye_closed_icon)
+                passwordInfoText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            }
+            isPasswordVisible = !isPasswordVisible
+        }
+
+        supportNextButton.setOnClickListener {
+            showSupport()
+        }
+        policyNextButton.setOnClickListener {
+            showPolicy()
         }
 
         logoutButton.setOnClickListener {
@@ -126,12 +165,26 @@ class Profile_Activity : Activity() {
 
     }
 
-    private fun generateAsterisksForPassword(password: String?): String {
-        return if (!password.isNullOrEmpty()) {
-            "*".repeat(password.length)
-        } else {
-            "No password set"
-        }
+    private fun showSupport(){
+        val dialogView = layoutInflater.inflate(R.layout.activity_support, null)
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        dialog.show()
+    }
+
+    private fun showPolicy(){
+        val dialogView = layoutInflater.inflate(R.layout.privacy_and_policy, null)
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        dialog.show()
     }
 
     private fun showLogoutConfirmationDialog() {
@@ -175,7 +228,6 @@ class Profile_Activity : Activity() {
             phoneInfoText.text = updatedPhone
             addressInfoText.text = updatedAddress
             passwordTextView.text = updatedPassword
-            passwordTextView.text = generateAsterisksForPassword(updatedPassword)
 
             updatedProfileImageUri?.let {
                 val uri = Uri.parse(it)

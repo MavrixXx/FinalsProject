@@ -41,7 +41,6 @@ class Login_Activity : AppCompatActivity() {
             val enteredEmail = emailEditText.text.toString()
             val enteredPassword = passwordEditText.text.toString()
 
-
             if (enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
                 Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
             } else {
@@ -70,10 +69,6 @@ class Login_Activity : AppCompatActivity() {
 
         dontHaveAccount.setOnClickListener {
             val signupIntent = Intent(this, Signup_Activity::class.java)
-            signupIntent.putExtra("USERNAME", username)
-            signupIntent.putExtra("EMAIL", email)
-            signupIntent.putExtra("PASSWORD", password)
-            signupIntent.putExtra("NEW_PASSWORD", newPassword)
             startActivity(signupIntent)
         }
 
@@ -95,6 +90,7 @@ class Login_Activity : AppCompatActivity() {
                 if (enteredEmail.isEmpty()) {
                     Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show()
                 } else {
+
                     if (enteredEmail == email) {
                         showResetPasswordDialog()
                     } else {
