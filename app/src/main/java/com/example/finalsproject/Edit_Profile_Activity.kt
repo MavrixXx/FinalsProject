@@ -45,6 +45,19 @@ class Edit_Profile_Activity : Activity() {
         }
 
         saveButton.setOnClickListener {
+            val emailInput = emailEditText.text.toString().trim()
+            val passwordInput = passwordEditText.text.toString()
+
+            if (emailInput.isNotEmpty() && !android.util.Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+                Toast.makeText(this, "Please enter a valid email address.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (passwordInput.isNotEmpty() && passwordInput.length < 6) {
+                Toast.makeText(this, "Password must be at least 6 characters.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             showConfirmationDialog(usernameEditText, emailEditText, phoneEditText, addressEditText, passwordEditText)
         }
     }
@@ -182,12 +195,14 @@ class Edit_Profile_Activity : Activity() {
     ) {
         val currentUsername = intent.getStringExtra("USERNAME") ?: ""
         val currentEmail = intent.getStringExtra("EMAIL") ?: ""
+        val currentPhone = intent.getStringExtra("PHONE") ?: ""
+        val currentAddress = intent.getStringExtra("ADDRESS") ?: ""
         val currentPassword = intent.getStringExtra("PASSWORD") ?: ""
 
         val updatedUsername = if (usernameEditText.text.isNullOrEmpty()) currentUsername else usernameEditText.text.toString()
         val updatedEmail = if (emailEditText.text.isNullOrEmpty()) currentEmail else emailEditText.text.toString()
-        val updatedPhone = if (phoneEditText.text.isNullOrEmpty()) "enter phone number" else phoneEditText.text.toString()
-        val updatedAddress = if (addressEditText.text.isNullOrEmpty()) "enter address" else addressEditText.text.toString()
+        val updatedPhone = if (phoneEditText.text.isNullOrEmpty()) currentPhone else phoneEditText.text.toString()
+        val updatedAddress = if (addressEditText.text.isNullOrEmpty()) currentAddress else addressEditText.text.toString()
         val updatedPassword = if (passwordEditText.text.isNullOrEmpty()) currentPassword else passwordEditText.text.toString()
 
         val resultIntent = Intent()

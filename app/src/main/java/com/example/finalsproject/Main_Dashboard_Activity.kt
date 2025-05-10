@@ -3,7 +3,6 @@ package com.example.finalsproject
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -55,18 +54,12 @@ class Main_Dashboard_Activity : Activity() {
         val bookmark = findViewById<ImageButton>(R.id.bookmarkImageButton)
         val profile = findViewById<ImageButton>(R.id.userImageButton)
         val journal = findViewById<ImageButton>(R.id.journalImageButton)
-        val explore = findViewById<ImageButton>(R.id.exploreImageButton)
 
         val username = intent.getStringExtra("USERNAME")
         val email = intent.getStringExtra("EMAIL")
         val phone = intent.getStringExtra("PHONE")
         val address = intent.getStringExtra("ADDRESS")
         val password = intent.getStringExtra("PASSWORD")
-
-        Log.d("DEBUG_DATA", "Phone: $phone")
-        Log.d("DEBUG_DATA", "Address: $address")
-        Log.d("DEBUG_DATA", "Username: $username")
-
 
         bookmarkedPlants = intent.getStringArrayListExtra("bookmarked_plants") ?: ArrayList()
 
@@ -250,6 +243,8 @@ class Main_Dashboard_Activity : Activity() {
             bookmarkIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             bookmarkIntent.putExtra("USERNAME", username)
             bookmarkIntent.putExtra("EMAIL", email)
+            bookmarkIntent.putExtra("PHONE", phone)
+            bookmarkIntent.putExtra("ADDRESS", address)
             bookmarkIntent.putExtra("PASSWORD", password)
             startActivity(bookmarkIntent)
         }
@@ -270,6 +265,8 @@ class Main_Dashboard_Activity : Activity() {
             journalIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
             journalIntent.putExtra("USERNAME", username)
             journalIntent.putExtra("EMAIL", email)
+            journalIntent.putExtra("PHONE", phone)
+            journalIntent.putExtra("ADDRESS", address)
             journalIntent.putExtra("PASSWORD", password)
             startActivity(journalIntent)
         }

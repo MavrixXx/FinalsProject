@@ -244,6 +244,15 @@
             android:text="****************"
             android:textColor="@color/black"
             android:textSize="15sp"/>
+
+        <ImageView
+            android:id="@+id/eyeToggle"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/eye_open_icon"
+            android:contentDescription="Toggle Password Visibility" />
     </RelativeLayout>
 </RelativeLayout>
 
@@ -280,11 +289,11 @@
                 android:textColor="@color/black"
                 android:textSize="15sp"/>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/nextIcon1"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/next_icon"
+                android:background="@drawable/next_icon"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
 
@@ -314,11 +323,11 @@
                 android:textColor="@color/black"
                 android:textSize="15sp"/>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/nextIcon2"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/next_icon"
+                android:background="@drawable/next_icon"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
 
@@ -369,15 +378,6 @@
                 android:layout_weight="1"
                 android:layout_margin="25dp"
                 android:background="@drawable/home_icon"
-                android:layout_gravity="center"/>
-
-            <ImageButton
-                android:id="@+id/exploreImageButton"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_weight="1"
-                android:layout_margin="25dp"
-                android:background="@drawable/explore_icon"
                 android:layout_gravity="center"/>
 
             <ImageButton

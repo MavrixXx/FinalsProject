@@ -35,7 +35,6 @@
         android:layout_height="wrap_content"
         android:text="plant description"
         android:textColor="@color/black"
-        android:textStyle="bold"
         android:textSize="15sp"
         android:layout_marginTop="20dp"
         android:justificationMode="inter_word"
