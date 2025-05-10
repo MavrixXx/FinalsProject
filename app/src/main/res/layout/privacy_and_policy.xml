@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+            <TextView
+                android:id="@+id/privacyTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/delius_swash_caps_regular"
+                android:text="Privacy Policy"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/privacyContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:lineSpacingExtra="6dp"
+            android:text="Thank you for using our app. Your privacy is important to us.\n\n
+1. Information We Collect\n
+• Personal Information – such as your email address, phone number, and any information you voluntarily provide.\n
+• Usage Data – including features you interact with and pages you visit.\n\n
+2. Sharing of Information\n
+• We do not sell your personal data.\n\n
+3. Your Rights\n
+• You may request access to, or deletion of, your data.\n\n
+4. Changes to this Policy\n
+• This policy may be updated occasionally. Changes will be reflected in this section."
+            app:layout_constraintTop_toBottomOf="@id/privacyTitle"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
