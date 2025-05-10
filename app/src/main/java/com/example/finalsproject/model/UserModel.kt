@@ -7,7 +7,7 @@ data class UserModel(
     val phone: String,
     val address: String,
     val password: String,
-    val confirmPassword: String? = null
+
 
 )
 
