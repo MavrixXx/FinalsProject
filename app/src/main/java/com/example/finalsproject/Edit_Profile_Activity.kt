@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.example.finalsproject.data.api.Session
 import com.example.florasense.data.model.UserModel
 import com.example.florasense.viewModel.UserViewModel
 import kotlinx.coroutines.launch
@@ -50,6 +51,8 @@ class Edit_Profile_Activity : AppCompatActivity() {
         val addressEditText = findViewById<EditText>(R.id.editAddress)
         val passwordEditText = findViewById<EditText>(R.id.editPassword)
         val saveButton = findViewById<Button>(R.id.saveButton)
+
+        initializedData()
 
         // Observe updates
         userViewModel.user.observe(this, Observer { updatedUser ->
@@ -178,6 +181,7 @@ class Edit_Profile_Activity : AppCompatActivity() {
     }
 
     private fun saveChanges(
+
         usernameEditText: EditText,
         emailEditText: EditText,
         phoneEditText: EditText,
@@ -207,6 +211,27 @@ class Edit_Profile_Activity : AppCompatActivity() {
 
         // Trigger ViewModel to handle update logic
         userViewModel.updateUser(updatedUser)
+    }
+
+    private fun initializedData(){
+        userViewModel.fetchUser(Session.userID)
+
+        userViewModel.user.observe(this){
+            val usernameEditText = findViewById<EditText>(R.id.editUsername)
+            val emailEditText = findViewById<EditText>(R.id.editEmail)
+            val phoneEditText = findViewById<EditText>(R.id.editPhone)
+            val addressEditText = findViewById<EditText>(R.id.editAddress)
+            val passwordEditText = findViewById<EditText>(R.id.editPassword)
+
+            usernameEditText.setText(it?.username)
+            emailEditText.setText(it?.email)
+            phoneEditText.setText(it?.phone)
+            addressEditText.setText(it?.address)
+            passwordEditText.setText(it?.password)
+
+
+        }
+
     }
 }
 

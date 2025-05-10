@@ -38,12 +38,27 @@ class UserViewModel : ViewModel() {
         }
     }
 
-
     fun updateUser(user: UserModel) {
         viewModelScope.launch {
             val response = userRepository.updateUser(user)
             if (response.isSuccessful) {
                 val updatedUser = response.body()?.user
+                if (updatedUser != null) {
+                    _user.value = updatedUser
+                } else {
+                    _updateError.value = "Failed to parse updated user."
+                }
+            } else {
+                _updateError.value = "Profile update failed: ${response.message()}"
+            }
+        }
+    }
+
+    fun fetchUser(userId: String) {
+        viewModelScope.launch {
+            val response = userRepository.fetchUser(userId)
+            if (response.isSuccessful) {
+                val updatedUser = response.body()
                 if (updatedUser != null) {
                     _user.value = updatedUser
                 } else {

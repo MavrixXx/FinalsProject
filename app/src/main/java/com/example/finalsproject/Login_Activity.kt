@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.example.finalsproject.data.api.Session
 import com.example.florasense.data.model.UserModel
 import com.example.florasense.viewModel.UserViewModel
 
@@ -57,6 +58,8 @@ class Login_Activity : AppCompatActivity() {
                         mainDashboardIntent.putExtra("PASSWORD", enteredPassword)
                         mainDashboardIntent.putExtra("PHONE", userResponse.phone)
                         mainDashboardIntent.putExtra("ADDRESS", userResponse.address)
+                        mainDashboardIntent.putExtra("USER_ID", userResponse._id)
+                        Session.userID = userResponse._id.toString()
                         startActivity(mainDashboardIntent)
                     }
                 })
