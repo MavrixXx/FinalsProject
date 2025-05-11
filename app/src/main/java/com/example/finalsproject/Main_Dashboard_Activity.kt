@@ -208,34 +208,92 @@ class Main_Dashboard_Activity : Activity() {
 
 
         bookmarkButton1.setOnClickListener {
-            toggleBookmark("Snake Plant")
+            if (bookmarkedPlants.contains("Snake Plant")) {
+                Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
+            } else {
+                bookmarkedPlants.add("Snake Plant")
+                Toast.makeText(this, "Snake Plant added to bookmarks", Toast.LENGTH_SHORT).show()
+            }
         }
+
         bookmarkButton2.setOnClickListener {
-            toggleBookmark("Monstera Plant")
+            if (bookmarkedPlants.contains("Monstera Plant")) {
+                Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
+            } else {
+                bookmarkedPlants.add("Monstera Plant")
+                Toast.makeText(this, "Monstera Plant added to bookmarks", Toast.LENGTH_SHORT).show()
+            }
         }
+
         bookmarkButton3.setOnClickListener {
-            toggleBookmark("False Shamrock")
+            if (bookmarkedPlants.contains("False Shamrock")) {
+                Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
+            } else {
+                bookmarkedPlants.add("False Shamrock")
+                Toast.makeText(this, "False Shamrock added to bookmarks", Toast.LENGTH_SHORT).show()
+            }
         }
+
         bookmarkButton4.setOnClickListener {
-            toggleBookmark("Barrel Cactus")
+            if (bookmarkedPlants.contains("Barrel Cactus")) {
+                Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
+            } else {
+                bookmarkedPlants.add("Barrel Cactus")
+                Toast.makeText(this, "Barrel Cactus added to bookmarks", Toast.LENGTH_SHORT).show()
+            }
         }
+
         bookmarkButton5.setOnClickListener {
-            toggleBookmark("Areca Palm")
+            if (bookmarkedPlants.contains("Areca Palm")) {
+                Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
+            } else {
+                bookmarkedPlants.add("Areca Palm")
+                Toast.makeText(this, "Areca Palm added to bookmarks", Toast.LENGTH_SHORT).show()
+            }
         }
+
         bookmarkButton6.setOnClickListener {
-            toggleBookmark("Sword Fern")
+            if (bookmarkedPlants.contains("Sword Fern")) {
+                Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
+            } else {
+                bookmarkedPlants.add("Sword Fern")
+                Toast.makeText(this, "Sword Fern added to bookmarks", Toast.LENGTH_SHORT).show()
+            }
         }
+
         bookmarkButton7.setOnClickListener {
-            toggleBookmark("Yucca Plant")
+            if (bookmarkedPlants.contains("Yucca Plant")) {
+                Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
+            } else {
+                bookmarkedPlants.add("Yucca Plant")
+                Toast.makeText(this, "Yucca Plant added to bookmarks", Toast.LENGTH_SHORT).show()
+            }
         }
+
         bookmarkButton8.setOnClickListener {
-            toggleBookmark("Aloe Vera")
+            if (bookmarkedPlants.contains("Aloe Vera")) {
+                Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
+            } else {
+                bookmarkedPlants.add("Aloe Vera")
+                Toast.makeText(this, "Aloe Vera added to bookmarks", Toast.LENGTH_SHORT).show()
+            }
         }
+
         bookmarkButton9.setOnClickListener {
-            toggleBookmark("Painter's-palette")
+            if (bookmarkedPlants.contains("Painter's Palette")) {
+                Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
+            } else {
+                bookmarkedPlants.add("Painter's Palette")
+                Toast.makeText(this, "Painter's Palette added to bookmarks", Toast.LENGTH_SHORT).show()
+            }
         }
         bookmarkButton10.setOnClickListener {
-            toggleBookmark("Bunny Ears Cactus")
+            if (bookmarkedPlants.contains("Bunny Ears Cactus")) {
+                Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
+            } else {
+                bookmarkedPlants.add("Bunny Ears Cactus")
+                Toast.makeText(this, "Bunny Ears Cactus added to bookmarks", Toast.LENGTH_SHORT).show()
+            }
         }
 
         bookmark.setOnClickListener {
@@ -306,13 +364,4 @@ class Main_Dashboard_Activity : Activity() {
         dialog.show()
     }
 
-    private fun toggleBookmark(plant: String) {
-        if (bookmarkedPlants.contains(plant)) {
-            bookmarkedPlants.remove(plant)
-            Toast.makeText(this, "${plant} removed from bookmarks", Toast.LENGTH_SHORT).show()
-        } else {
-            bookmarkedPlants.add(plant)
-            Toast.makeText(this, "${plant} added to bookmarks", Toast.LENGTH_SHORT).show()
-        }
-    }
 }

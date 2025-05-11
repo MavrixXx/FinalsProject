@@ -183,14 +183,13 @@ class Edit_Profile_Activity : AppCompatActivity() {
         addressEditText: EditText,
         passwordEditText: EditText
     ) {
-        // Collect current data (from previous activity or intent)
+
         val currentUsername = intent.getStringExtra("USERNAME") ?: ""
         val currentEmail = intent.getStringExtra("EMAIL") ?: ""
         val currentPhone = intent.getStringExtra("PHONE") ?: ""
         val currentAddress = intent.getStringExtra("ADDRESS") ?: ""
         val currentPassword = intent.getStringExtra("PASSWORD") ?: ""
 
-        // Gather updated data
         val updatedUsername = if (usernameEditText.text.isNullOrEmpty()) currentUsername else usernameEditText.text.toString()
         val updatedEmail = if (emailEditText.text.isNullOrEmpty()) currentEmail else emailEditText.text.toString()
         val updatedPhone = if (phoneEditText.text.isNullOrEmpty()) currentPhone else phoneEditText.text.toString()
