@@ -1,5 +1,6 @@
 package com.example.florasense.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -30,6 +31,7 @@ class UserViewModel : ViewModel() {
     fun loginUser(user: UserModel) {
         viewModelScope.launch {
             val response = userRepository.loginUser(user)
+
             if (response.isSuccessful) {
                 _user.value = response.body()
             } else {
@@ -57,6 +59,7 @@ class UserViewModel : ViewModel() {
     fun fetchUser(userId: String) {
         viewModelScope.launch {
             val response = userRepository.fetchUser(userId)
+            Log.d("response", response.message())
             if (response.isSuccessful) {
                 val updatedUser = response.body()
                 if (updatedUser != null) {

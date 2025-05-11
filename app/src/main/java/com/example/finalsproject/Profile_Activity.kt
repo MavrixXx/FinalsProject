@@ -133,11 +133,11 @@ class Profile_Activity : Activity() {
 
         editProfileButton.setOnClickListener {
             val editProfileIntent = Intent(this, Edit_Profile_Activity::class.java)
-            editProfileIntent.putExtra("USERNAME", username)
+            editProfileIntent.putExtra("USERNAME", updatedUsername)
             editProfileIntent.putExtra("EMAIL", email)
-            editProfileIntent.putExtra("PHONE", phone)
-            editProfileIntent.putExtra("ADDRESS", address)
-            editProfileIntent.putExtra("PASSWORD", password)
+            editProfileIntent.putExtra("PHONE", updatedPhone)
+            editProfileIntent.putExtra("ADDRESS", updatedAddress)
+            editProfileIntent.putExtra("PASSWORD", updatedPassword)
             startActivityForResult(editProfileIntent, 1001)
         }
 
@@ -158,7 +158,6 @@ class Profile_Activity : Activity() {
         policyNextButton.setOnClickListener {
             showPolicy()
         }
-
         logoutButton.setOnClickListener {
             showLogoutConfirmationDialog()
         }
@@ -214,11 +213,11 @@ class Profile_Activity : Activity() {
             val emailInfoText = findViewById<TextView>(R.id.emailInfoText)
             val profilePicture = findViewById<ImageView>(R.id.profilePicture)
 
-            val updatedUsername = data?.getStringExtra("UPDATED_USERNAME")
-            val updatedEmail = data?.getStringExtra("UPDATED_EMAIL")
-            val updatedPhone = data?.getStringExtra("UPDATED_PHONE")
-            val updatedAddress = data?.getStringExtra("UPDATED_ADDRESS")
-            val updatedPassword = data?.getStringExtra("UPDATED_PASSWORD")
+            updatedUsername = data?.getStringExtra("UPDATED_USERNAME") ?: updatedUsername
+            updatedEmail = data?.getStringExtra("UPDATED_EMAIL") ?: updatedEmail
+            updatedPhone = data?.getStringExtra("UPDATED_PHONE") ?: updatedPhone
+            updatedAddress = data?.getStringExtra("UPDATED_ADDRESS") ?: updatedAddress
+            updatedPassword = data?.getStringExtra("UPDATED_PASSWORD") ?: updatedPassword
             val updatedProfileImageUri = data?.getStringExtra("UPDATED_PROFILE_IMAGE")
 
             usernameTextView.text = updatedUsername

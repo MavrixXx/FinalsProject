@@ -16,5 +16,3 @@ data class UpdateUserResponse(
 )
 
 
-
-

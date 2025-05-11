@@ -7,12 +7,31 @@
     android:background="#1E1E1E"
     tools:context=".Edit_Profile_Activity">
 
+    <EditText
+        android:id="@+id/editEmail"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:paddingLeft="20dp"
+        android:hint="Email"
+        android:textSize="18sp"
+        android:textColorHint="@color/gray"
+        android:background="@drawable/circular_edit_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
     <RelativeLayout
         android:id="@+id/editProfileBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:background="@drawable/rounded_gray_background_upsidedown">
+        android:background="@drawable/rounded_gray_background_upsidedown"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <TextView
             android:id="@+id/editProfileText"
@@ -77,22 +96,8 @@
         android:background="@drawable/circular_edit_text"/>
 
     <EditText
-        android:id="@+id/editEmail"
-        android:layout_below="@id/editUsername"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:paddingLeft="20dp"
-        android:hint="Email"
-        android:textSize="18sp"
-        android:textColorHint="@color/gray"
-        android:background="@drawable/circular_edit_text"/>
-
-    <EditText
         android:id="@+id/editPhone"
-        android:layout_below="@id/editEmail"
+        android:layout_below="@id/editUsername"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

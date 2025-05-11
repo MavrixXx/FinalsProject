@@ -3,6 +3,7 @@ package com.example.finalsproject
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -49,7 +50,7 @@ class Login_Activity : AppCompatActivity() {
 
                 userViewModel.loginUser(user)
 
-                userViewModel.user.observe(this, Observer { userResponse ->
+                userViewModel.user.observe(this){userResponse ->
                     if (userResponse != null) {
                         Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                         val mainDashboardIntent = Intent(this, Main_Dashboard_Activity::class.java)
@@ -62,7 +63,7 @@ class Login_Activity : AppCompatActivity() {
                         Session.userID = userResponse._id.toString()
                         startActivity(mainDashboardIntent)
                     }
-                })
+                }
 
                 userViewModel.loginError.observe(this, Observer { errorMessage ->
                     Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()

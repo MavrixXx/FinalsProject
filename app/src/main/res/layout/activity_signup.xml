@@ -97,7 +97,7 @@
             android:textSize="15sp"
             android:textColorHint="@color/gray"
             android:paddingLeft="20dp"
-            android:inputType="text"
+            android:inputType="number"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"/>
 
