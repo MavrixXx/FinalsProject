@@ -17,6 +17,7 @@ class UserViewModel : ViewModel() {
     private val _updateError = MutableLiveData<String>()
     val updateError: MutableLiveData<String> = _updateError
 
+
     // Register user
     fun registerUser(user: UserModel) {
         viewModelScope.launch {

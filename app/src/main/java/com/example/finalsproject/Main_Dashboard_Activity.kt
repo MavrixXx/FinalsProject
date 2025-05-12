@@ -8,11 +8,18 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import com.example.finalsproject.data.api.Session
+import com.example.finalsproject.viewModel.BookmarkViewModel
+import com.example.florasense.data.model.BookmarkModel
 
-class Main_Dashboard_Activity : Activity() {
+class Main_Dashboard_Activity : AppCompatActivity() {
 
     private var bookmarkedPlants = mutableListOf<String>()
+    private val bookmarkViewModel: BookmarkViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -208,11 +215,16 @@ class Main_Dashboard_Activity : Activity() {
 
 
         bookmarkButton1.setOnClickListener {
+           val bookmark = BookmarkModel(
+               userID = Session.userID,
+               plantName = "Snake Plant"
+           )
             if (bookmarkedPlants.contains("Snake Plant")) {
                 Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
             } else {
                 bookmarkedPlants.add("Snake Plant")
                 Toast.makeText(this, "Snake Plant added to bookmarks", Toast.LENGTH_SHORT).show()
+                bookmarkViewModel.addBookmark(bookmark)
             }
         }
 
@@ -363,5 +375,7 @@ class Main_Dashboard_Activity : Activity() {
 
         dialog.show()
     }
+
+
 
 }
