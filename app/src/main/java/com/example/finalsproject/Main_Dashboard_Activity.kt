@@ -216,7 +216,7 @@ class Main_Dashboard_Activity : AppCompatActivity() {
 
         bookmarkButton1.setOnClickListener {
            val bookmark = BookmarkModel(
-               userID = Session.userID,
+               user_Id = Session.userID,
                plantName = "Snake Plant"
            )
             if (bookmarkedPlants.contains("Snake Plant")) {
@@ -229,82 +229,128 @@ class Main_Dashboard_Activity : AppCompatActivity() {
         }
 
         bookmarkButton2.setOnClickListener {
+            val bookmark = BookmarkModel(
+                user_Id = Session.userID,
+                plantName = "Monstera Plant"
+            )
             if (bookmarkedPlants.contains("Monstera Plant")) {
                 Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
             } else {
                 bookmarkedPlants.add("Monstera Plant")
                 Toast.makeText(this, "Monstera Plant added to bookmarks", Toast.LENGTH_SHORT).show()
+                bookmarkViewModel.addBookmark(bookmark)
             }
         }
 
         bookmarkButton3.setOnClickListener {
+            val bookmark = BookmarkModel(
+                user_Id = Session.userID,
+                plantName = "False Shamrock"
+            )
+
             if (bookmarkedPlants.contains("False Shamrock")) {
                 Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
             } else {
                 bookmarkedPlants.add("False Shamrock")
                 Toast.makeText(this, "False Shamrock added to bookmarks", Toast.LENGTH_SHORT).show()
+                bookmarkViewModel.addBookmark(bookmark)
             }
         }
 
         bookmarkButton4.setOnClickListener {
+            val bookmark = BookmarkModel(
+                user_Id = Session.userID,
+                plantName = "Barrel Cactus"
+            )
             if (bookmarkedPlants.contains("Barrel Cactus")) {
                 Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
             } else {
                 bookmarkedPlants.add("Barrel Cactus")
                 Toast.makeText(this, "Barrel Cactus added to bookmarks", Toast.LENGTH_SHORT).show()
+                bookmarkViewModel.addBookmark(bookmark)
             }
         }
 
         bookmarkButton5.setOnClickListener {
+            val bookmark = BookmarkModel(
+                user_Id = Session.userID,
+                plantName = "Areca Palm"
+            )
             if (bookmarkedPlants.contains("Areca Palm")) {
                 Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
             } else {
                 bookmarkedPlants.add("Areca Palm")
                 Toast.makeText(this, "Areca Palm added to bookmarks", Toast.LENGTH_SHORT).show()
+                bookmarkViewModel.addBookmark(bookmark)
             }
         }
 
         bookmarkButton6.setOnClickListener {
+            val bookmark = BookmarkModel(
+                user_Id = Session.userID,
+                plantName = "Sword Fern"
+            )
             if (bookmarkedPlants.contains("Sword Fern")) {
                 Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
             } else {
                 bookmarkedPlants.add("Sword Fern")
                 Toast.makeText(this, "Sword Fern added to bookmarks", Toast.LENGTH_SHORT).show()
+                bookmarkViewModel.addBookmark(bookmark)
             }
         }
 
         bookmarkButton7.setOnClickListener {
+            val bookmark = BookmarkModel(
+                user_Id = Session.userID,
+                plantName = "Yucca Plant"
+            )
             if (bookmarkedPlants.contains("Yucca Plant")) {
                 Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
             } else {
                 bookmarkedPlants.add("Yucca Plant")
                 Toast.makeText(this, "Yucca Plant added to bookmarks", Toast.LENGTH_SHORT).show()
+                bookmarkViewModel.addBookmark(bookmark)
             }
         }
 
         bookmarkButton8.setOnClickListener {
+            val bookmark = BookmarkModel(
+                user_Id = Session.userID,
+                plantName = "Aloe Vera"
+            )
             if (bookmarkedPlants.contains("Aloe Vera")) {
                 Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
             } else {
                 bookmarkedPlants.add("Aloe Vera")
                 Toast.makeText(this, "Aloe Vera added to bookmarks", Toast.LENGTH_SHORT).show()
+                bookmarkViewModel.addBookmark(bookmark)
             }
         }
 
         bookmarkButton9.setOnClickListener {
+            val bookmark = BookmarkModel(
+                user_Id = Session.userID,
+                plantName = "Painter's Palette"
+            )
             if (bookmarkedPlants.contains("Painter's Palette")) {
                 Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
             } else {
                 bookmarkedPlants.add("Painter's Palette")
                 Toast.makeText(this, "Painter's Palette added to bookmarks", Toast.LENGTH_SHORT).show()
+                bookmarkViewModel.addBookmark(bookmark)
             }
         }
         bookmarkButton10.setOnClickListener {
+            val bookmark = BookmarkModel(
+                user_Id = Session.userID,
+                plantName = "Bunny Ears Cactus"
+            )
             if (bookmarkedPlants.contains("Bunny Ears Cactus")) {
                 Toast.makeText(this, "Already bookmarked!", Toast.LENGTH_SHORT).show()
             } else {
                 bookmarkedPlants.add("Bunny Ears Cactus")
                 Toast.makeText(this, "Bunny Ears Cactus added to bookmarks", Toast.LENGTH_SHORT).show()
+                bookmarkViewModel.addBookmark(bookmark)
             }
         }
 

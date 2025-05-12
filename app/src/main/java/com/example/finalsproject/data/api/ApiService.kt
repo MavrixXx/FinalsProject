@@ -9,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @POST("users")
@@ -25,6 +26,9 @@ interface ApiService {
 
     @POST("bookmarks")
     suspend fun addBookmark(@Body bookmark: BookmarkModel): Response<BookmarkModel>
+
+    @GET("bookmarks")
+    suspend fun getBookmarks(@Query("plantName") plantName: String): Response<List<BookmarkModel>>
 }
 
 

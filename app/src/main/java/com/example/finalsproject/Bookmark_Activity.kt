@@ -1,6 +1,5 @@
     package com.example.finalsproject
 
-    import android.app.Activity
     import android.app.AlertDialog
     import android.content.Intent
     import android.os.Bundle
@@ -9,10 +8,17 @@
     import android.widget.ImageButton
     import android.widget.ListView
     import android.widget.TextView
+    import androidx.appcompat.app.AppCompatActivity
+    import androidx.activity.viewModels
+    import androidx.lifecycle.Observer
+    import com.example.finalsproject.viewModel.BookmarkViewModel
 
-        class Bookmark_Activity : Activity() {
 
-            private lateinit var bookmarkListView: ListView
+    class Bookmark_Activity : AppCompatActivity() {
+
+
+        private val bookmarkViewModel: BookmarkViewModel by viewModels()
+        private lateinit var bookmarkListView: ListView
             private lateinit var emptyMessageTextView: TextView
             private lateinit var bookmarkedPlants: ArrayList<String>
             private lateinit var adapter: ArrayAdapter<String>
@@ -21,9 +27,25 @@
                 super.onCreate(savedInstanceState)
                 setContentView(R.layout.activity_bookmark)
 
+                bookmarkViewModel.bookmarks.observe(this, Observer { bookmarks ->
+                    bookmarkedPlants.clear()
+                    if (bookmarks != null && bookmarks.isNotEmpty()) {
+                        bookmarkedPlants.addAll(bookmarks.map { it.plantName })
+                        adapter.notifyDataSetChanged()
+                        emptyMessageTextView.visibility = View.GONE
+                        bookmarkListView.visibility = View.VISIBLE
+                    } else {
+                        emptyMessageTextView.visibility = View.VISIBLE
+                        bookmarkListView.visibility = View.GONE
+                    }
+                })
+
                 bookmarkListView = findViewById(R.id.bookmarkList)
                 emptyMessageTextView = findViewById(R.id.emptyMessageText)
-                bookmarkedPlants = intent.getStringArrayListExtra("bookmarked_plants") ?: ArrayList()
+                bookmarkedPlants = ArrayList()
+                adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, bookmarkedPlants)
+                bookmarkListView.adapter = adapter
+
                 adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, bookmarkedPlants)
                 bookmarkListView.adapter = adapter
 
@@ -128,7 +150,8 @@
                     startActivity(journalIntent)
                 }
 
-
+                bookmarkViewModel.getBookmarks("") // or pass a plant name if you want to filter
             }
+
         }
 

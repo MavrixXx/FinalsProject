@@ -17,7 +17,7 @@ data class UpdateUserResponse(
 
 data class BookmarkModel(
     val _id: String? = null,
-    val userID: String,
+    val user_Id: String,
     val plantName: String,
 )
 
