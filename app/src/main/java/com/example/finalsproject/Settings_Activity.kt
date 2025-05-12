@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.ImageView
 
 class Settings_Activity : Activity() {
 
@@ -18,6 +19,10 @@ class Settings_Activity : Activity() {
         val homeButton = findViewById<ImageButton>(R.id.homeImageButton)
         val bookmarkButton = findViewById<ImageButton>(R.id.bookmarkImageButton)
         val profileButton = findViewById<ImageButton>(R.id.userImageButton)
+        val themeButton = findViewById<ImageView>(R.id.nextIcon)
+        val languageButton = findViewById<ImageView>(R.id.nextIcon1)
+        val premiumButton = findViewById<ImageView>(R.id.nextIcon5)
+        val termsButton = findViewById<ImageView>(R.id.nextIcon7)
 
         val username = intent.getStringExtra("USERNAME")
         val email = intent.getStringExtra("EMAIL")
@@ -35,6 +40,42 @@ class Settings_Activity : Activity() {
             backIntent.putExtra("ADDRESS", address)
             backIntent.putExtra("PASSWORD", finalPassword)
             startActivity(backIntent)
+        }
+
+        languageButton.setOnClickListener {
+            val languageIntent = Intent(this, Language_Activity::class.java)
+            languageIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
+            languageIntent.putExtra("USERNAME", username)
+            languageIntent.putExtra("EMAIL", email)
+            languageIntent.putExtra("PHONE", phone)
+            languageIntent.putExtra("ADDRESS", address)
+            languageIntent.putExtra("PASSWORD", finalPassword)
+            startActivity(languageIntent)
+        }
+
+        themeButton.setOnClickListener {
+            val themeIntent = Intent(this, Theme_Activity::class.java)
+            themeIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
+            themeIntent.putExtra("USERNAME", username)
+            themeIntent.putExtra("EMAIL", email)
+            themeIntent.putExtra("PHONE", phone)
+            themeIntent.putExtra("ADDRESS", address)
+            themeIntent.putExtra("PASSWORD", finalPassword)
+            startActivity(themeIntent)
+        }
+
+        premiumButton.setOnClickListener {
+            val premiumIntent = Intent(this, Premium_Activity::class.java)
+            premiumIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
+            premiumIntent.putExtra("USERNAME", username)
+            premiumIntent.putExtra("EMAIL", email)
+            premiumIntent.putExtra("PHONE", phone)
+            premiumIntent.putExtra("ADDRESS", address)
+            premiumIntent.putExtra("PASSWORD", finalPassword)
+            startActivity(premiumIntent)
+        }
+        termsButton.setOnClickListener {
+            showTermsAndConditions()
         }
 
         homeButton.setOnClickListener {
@@ -80,5 +121,16 @@ class Settings_Activity : Activity() {
             developersIntent.putExtra("PASSWORD", finalPassword)
             startActivity(developersIntent)
         }
+    }
+
+    private fun showTermsAndConditions() {
+        val dialogView = layoutInflater.inflate(R.layout.term_and_condition, null)
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        dialog.show()
     }
 }

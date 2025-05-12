@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/privacyTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/delius_swash_caps_regular"
+                android:text="Terms and Condition"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/privacyContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:lineSpacingExtra="6dp"
+            android:text="Welcome to FloraSense. By accessing or using our application, you agree to comply with the following Terms and Conditions. Please read them carefully before proceeding.\n\n
+1. Acceptance of Terms\n
+By using FloraSense, you acknowledge that you have read, understood, and agreed to these Terms and Conditions. If you do not agree with any part of these terms, you must discontinue use of the application immediately.\n\n
+2. Use of the Application\n
+You must be at least 13 years old to use this application.\n
+You agree to use FloraSense for lawful purposes only and in accordance with these Terms and Conditions.\n
+Any unauthorized access, modification, or misuse of the application is strictly prohibited.\n\n
+3. User Accounts and Security\n
+If registration is required, you are responsible for maintaining the confidentiality of your account credentials.\n
+You agree to provide accurate and up-to-date information when creating an account.\n
+Any unauthorized use or breach of security must be reported immediately to our support team.\n\n
+4. Privacy and Data Collection\n
+Your privacy is important to us. We collect, store, and process personal information in accordance. By using FloraSense, you consent to our data collection practices.\n\n
+5. Intellectual Property Rights\n
+All content, including but not limited to text, images, trademarks, and software, is the property of FloraSense or its licensors.\n
+You may not reproduce, modify, distribute, or exploit any content without prior written permission.\n\n
+6. Limitation of Liability\n
+While we strive to provide a reliable and secure service, we do not guarantee that the application will be error-free or uninterrupted.\n
+FloraSense shall not be liable for any direct, indirect, incidental, or consequential damages arising from the use or inability to use the application.\n\n
+7. Termination and Suspension\n
+We reserve the right to suspend or terminate your access to FloraSense at any time if you violate these Terms and Conditions.\n
+You may discontinue use of the application at any time.\n\n
+8. Changes to These Terms\n
+We may update these Terms and Conditions periodically. Any modifications will be reflected in this section, and continued use of the application constitutes acceptance of the revised terms.\n\n
+9. Contact Information\n
+If you have any questions or concerns regarding these Terms and Conditions, please contact us at florasense@gmail.com.\n\n"
+            app:layout_constraintTop_toBottomOf="@id/privacyTitle"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -32,6 +32,7 @@ class Edit_Profile_Activity : AppCompatActivity() {
 
     private var selectedImageUri: Uri? = null
     private val userViewModel: UserViewModel by viewModels()
+    private lateinit var bookmarkedPlants: ArrayList<String>
 
     companion object {
         private const val IMAGE_REQUEST_CODE = 1001
@@ -51,6 +52,14 @@ class Edit_Profile_Activity : AppCompatActivity() {
         val addressEditText = findViewById<EditText>(R.id.editAddress)
         val passwordEditText = findViewById<EditText>(R.id.editPassword)
         val saveButton = findViewById<Button>(R.id.saveButton)
+        val backButton = findViewById<ImageButton>(R.id.backImageButton)
+
+        val username = intent.getStringExtra("USERNAME")
+        val email = intent.getStringExtra("EMAIL")
+        val phone = intent.getStringExtra("PHONE")
+        val address = intent.getStringExtra("ADDRESS")
+        val finalPassword = intent.getStringExtra("PASSWORD")
+        bookmarkedPlants = intent.getStringArrayListExtra("bookmarked_plants") ?: ArrayList()
 
         initializedData()
 
@@ -74,6 +83,17 @@ class Edit_Profile_Activity : AppCompatActivity() {
             showConfirmationDialog(
                 usernameEditText, emailEditText, phoneEditText, addressEditText, passwordEditText
             )
+        }
+
+        backButton.setOnClickListener {
+            val backIntent = Intent(this, Profile_Activity::class.java)
+            backIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
+            backIntent.putExtra("USERNAME", username)
+            backIntent.putExtra("EMAIL", email)
+            backIntent.putExtra("PHONE", phone)
+            backIntent.putExtra("ADDRESS", address)
+            backIntent.putExtra("PASSWORD", finalPassword)
+            startActivity(backIntent)
         }
     }
 
@@ -126,7 +146,8 @@ class Edit_Profile_Activity : AppCompatActivity() {
     }
 
     private fun getImageUriFromBitmap(bitmap: Bitmap): Uri {
-        val path = MediaStore.Images.Media.insertImage(contentResolver, bitmap, "profile_image", null)
+        val path =
+            MediaStore.Images.Media.insertImage(contentResolver, bitmap, "profile_image", null)
         return Uri.parse(path)
     }
 
@@ -138,7 +159,8 @@ class Edit_Profile_Activity : AppCompatActivity() {
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
                 val croppedBitmap = getCroppedBitmap(bitmap, sizeInPx)
-                val resizedBitmap = Bitmap.createScaledBitmap(croppedBitmap, sizeInPx, sizeInPx, false)
+                val resizedBitmap =
+                    Bitmap.createScaledBitmap(croppedBitmap, sizeInPx, sizeInPx, false)
                 profileImage.setImageBitmap(resizedBitmap)
                 val croppedImageUri = getImageUriFromBitmap(resizedBitmap)
                 selectedImageUri = croppedImageUri
@@ -174,7 +196,13 @@ class Edit_Profile_Activity : AppCompatActivity() {
         builder.setTitle("Confirm Changes")
         builder.setMessage("Are you sure you want to save the changes to your profile?")
         builder.setPositiveButton("Yes") { _, _ ->
-            saveChanges(usernameEditText, emailEditText, phoneEditText, addressEditText, passwordEditText)
+            saveChanges(
+                usernameEditText,
+                emailEditText,
+                phoneEditText,
+                addressEditText,
+                passwordEditText
+            )
         }
         builder.setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
         builder.create().show()
@@ -194,11 +222,16 @@ class Edit_Profile_Activity : AppCompatActivity() {
         val currentPassword = intent.getStringExtra("PASSWORD") ?: ""
 
         // Gather updated data
-        val updatedUsername = if (usernameEditText.text.isNullOrEmpty()) currentUsername else usernameEditText.text.toString()
-        val updatedEmail = if (emailEditText.text.isNullOrEmpty()) currentEmail else emailEditText.text.toString()
-        val updatedPhone = if (phoneEditText.text.isNullOrEmpty()) "Enter phone number" else phoneEditText.text.toString()
-        val updatedAddress = if (addressEditText.text.isNullOrEmpty()) "Enter address" else addressEditText.text.toString()
-        val updatedPassword = if (passwordEditText.text.isNullOrEmpty()) currentPassword else passwordEditText.text.toString()
+        val updatedUsername =
+            if (usernameEditText.text.isNullOrEmpty()) currentUsername else usernameEditText.text.toString()
+        val updatedEmail =
+            if (emailEditText.text.isNullOrEmpty()) currentEmail else emailEditText.text.toString()
+        val updatedPhone =
+            if (phoneEditText.text.isNullOrEmpty()) "Enter phone number" else phoneEditText.text.toString()
+        val updatedAddress =
+            if (addressEditText.text.isNullOrEmpty()) "Enter address" else addressEditText.text.toString()
+        val updatedPassword =
+            if (passwordEditText.text.isNullOrEmpty()) currentPassword else passwordEditText.text.toString()
 
         // Create user model for update
         val updatedUser = UserModel(
@@ -213,10 +246,10 @@ class Edit_Profile_Activity : AppCompatActivity() {
         userViewModel.updateUser(updatedUser)
     }
 
-    private fun initializedData(){
+    private fun initializedData() {
         userViewModel.fetchUser(Session.userID)
 
-        userViewModel.user.observe(this){
+        userViewModel.user.observe(this) {
             val usernameEditText = findViewById<EditText>(R.id.editUsername)
             val emailEditText = findViewById<EditText>(R.id.editEmail)
             val phoneEditText = findViewById<EditText>(R.id.editPhone)
@@ -228,10 +261,9 @@ class Edit_Profile_Activity : AppCompatActivity() {
             phoneEditText.setText(it?.phone)
             addressEditText.setText(it?.address)
             passwordEditText.setText(it?.password)
-
-
         }
-
     }
+
 }
+
 

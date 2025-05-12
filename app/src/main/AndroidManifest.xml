@@ -52,6 +52,15 @@
             android:name=".Journal_Activity"
             android:exported="false" />
         <activity
+            android:name=".Language_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Theme_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Premium_Activity"
+            android:exported="false" />
+        <activity
             android:name=".Get_Started_Activity"
             android:exported="true">
             <intent-filter>
