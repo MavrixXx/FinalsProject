@@ -337,6 +337,7 @@ class Journal_Activity : AppCompatActivity() {
         }
 
         scrollFeed.addView(noteView)
+        journalViewModel.addJournal(journal)
     }
 
     private fun showEditNoteDialog(note: JournalNote) {
