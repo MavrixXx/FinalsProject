@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -32,7 +33,6 @@ class Edit_Profile_Activity : AppCompatActivity() {
 
     private var selectedImageUri: Uri? = null
     private val userViewModel: UserViewModel by viewModels()
-    private lateinit var bookmarkedPlants: ArrayList<String>
 
     companion object {
         private const val IMAGE_REQUEST_CODE = 1001
@@ -52,48 +52,24 @@ class Edit_Profile_Activity : AppCompatActivity() {
         val addressEditText = findViewById<EditText>(R.id.editAddress)
         val passwordEditText = findViewById<EditText>(R.id.editPassword)
         val saveButton = findViewById<Button>(R.id.saveButton)
-        val backButton = findViewById<ImageButton>(R.id.backImageButton)
 
-        val username = intent.getStringExtra("USERNAME")
-        val email = intent.getStringExtra("EMAIL")
-        val phone = intent.getStringExtra("PHONE")
-        val address = intent.getStringExtra("ADDRESS")
-        val finalPassword = intent.getStringExtra("PASSWORD")
-        bookmarkedPlants = intent.getStringArrayListExtra("bookmarked_plants") ?: ArrayList()
-
-        initializedData()
-
-        // Observe updates
         userViewModel.user.observe(this, Observer { updatedUser ->
-            // Handle successful update (update UI or inform user)
             Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
-            finish()  // Optional: Close the activity or return the updated data
+            finish()
         })
 
         userViewModel.updateError.observe(this, Observer { error ->
-            // Handle error
             Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
         })
 
-        // Handle profile image change
-        profileImage.setOnClickListener { showImageSourceDialog() }
+        profileImage.setOnClickListener {
+            showImageSourceDialog()
+        }
 
-        // Handle save button click
         saveButton.setOnClickListener {
             showConfirmationDialog(
                 usernameEditText, emailEditText, phoneEditText, addressEditText, passwordEditText
             )
-        }
-
-        backButton.setOnClickListener {
-            val backIntent = Intent(this, Profile_Activity::class.java)
-            backIntent.putStringArrayListExtra("bookmarked_plants", ArrayList(bookmarkedPlants))
-            backIntent.putExtra("USERNAME", username)
-            backIntent.putExtra("EMAIL", email)
-            backIntent.putExtra("PHONE", phone)
-            backIntent.putExtra("ADDRESS", address)
-            backIntent.putExtra("PASSWORD", finalPassword)
-            startActivity(backIntent)
         }
     }
 
@@ -146,8 +122,7 @@ class Edit_Profile_Activity : AppCompatActivity() {
     }
 
     private fun getImageUriFromBitmap(bitmap: Bitmap): Uri {
-        val path =
-            MediaStore.Images.Media.insertImage(contentResolver, bitmap, "profile_image", null)
+        val path = MediaStore.Images.Media.insertImage(contentResolver, bitmap, "profile_image", null)
         return Uri.parse(path)
     }
 
@@ -159,8 +134,7 @@ class Edit_Profile_Activity : AppCompatActivity() {
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
                 val croppedBitmap = getCroppedBitmap(bitmap, sizeInPx)
-                val resizedBitmap =
-                    Bitmap.createScaledBitmap(croppedBitmap, sizeInPx, sizeInPx, false)
+                val resizedBitmap = Bitmap.createScaledBitmap(croppedBitmap, sizeInPx, sizeInPx, false)
                 profileImage.setImageBitmap(resizedBitmap)
                 val croppedImageUri = getImageUriFromBitmap(resizedBitmap)
                 selectedImageUri = croppedImageUri
@@ -196,20 +170,13 @@ class Edit_Profile_Activity : AppCompatActivity() {
         builder.setTitle("Confirm Changes")
         builder.setMessage("Are you sure you want to save the changes to your profile?")
         builder.setPositiveButton("Yes") { _, _ ->
-            saveChanges(
-                usernameEditText,
-                emailEditText,
-                phoneEditText,
-                addressEditText,
-                passwordEditText
-            )
+            saveChanges(usernameEditText, emailEditText, phoneEditText, addressEditText, passwordEditText)
         }
         builder.setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
         builder.create().show()
     }
 
     private fun saveChanges(
-
         usernameEditText: EditText,
         emailEditText: EditText,
         phoneEditText: EditText,
@@ -219,21 +186,17 @@ class Edit_Profile_Activity : AppCompatActivity() {
         // Collect current data (from previous activity or intent)
         val currentUsername = intent.getStringExtra("USERNAME") ?: ""
         val currentEmail = intent.getStringExtra("EMAIL") ?: ""
+        val currentPhone = intent.getStringExtra("PHONE") ?: ""
+        val currentAddress = intent.getStringExtra("ADDRESS") ?: ""
         val currentPassword = intent.getStringExtra("PASSWORD") ?: ""
 
         // Gather updated data
-        val updatedUsername =
-            if (usernameEditText.text.isNullOrEmpty()) currentUsername else usernameEditText.text.toString()
-        val updatedEmail =
-            if (emailEditText.text.isNullOrEmpty()) currentEmail else emailEditText.text.toString()
-        val updatedPhone =
-            if (phoneEditText.text.isNullOrEmpty()) "Enter phone number" else phoneEditText.text.toString()
-        val updatedAddress =
-            if (addressEditText.text.isNullOrEmpty()) "Enter address" else addressEditText.text.toString()
-        val updatedPassword =
-            if (passwordEditText.text.isNullOrEmpty()) currentPassword else passwordEditText.text.toString()
+        val updatedUsername = if (usernameEditText.text.isNullOrEmpty()) currentUsername else usernameEditText.text.toString()
+        val updatedEmail = if (emailEditText.text.isNullOrEmpty()) currentEmail else emailEditText.text.toString()
+        val updatedPhone = if (phoneEditText.text.isNullOrEmpty()) currentPhone else phoneEditText.text.toString()
+        val updatedAddress = if (addressEditText.text.isNullOrEmpty()) currentAddress else addressEditText.text.toString()
+        val updatedPassword = if (passwordEditText.text.isNullOrEmpty()) currentPassword else passwordEditText.text.toString()
 
-        // Create user model for update
         val updatedUser = UserModel(
             username = updatedUsername,
             email = updatedEmail,
@@ -242,28 +205,20 @@ class Edit_Profile_Activity : AppCompatActivity() {
             address = updatedAddress
         )
 
-        // Trigger ViewModel to handle update logic
         userViewModel.updateUser(updatedUser)
-    }
 
-    private fun initializedData() {
-        userViewModel.fetchUser(Session.userID)
-
-        userViewModel.user.observe(this) {
-            val usernameEditText = findViewById<EditText>(R.id.editUsername)
-            val emailEditText = findViewById<EditText>(R.id.editEmail)
-            val phoneEditText = findViewById<EditText>(R.id.editPhone)
-            val addressEditText = findViewById<EditText>(R.id.editAddress)
-            val passwordEditText = findViewById<EditText>(R.id.editPassword)
-
-            usernameEditText.setText(it?.username)
-            emailEditText.setText(it?.email)
-            phoneEditText.setText(it?.phone)
-            addressEditText.setText(it?.address)
-            passwordEditText.setText(it?.password)
+        val resultIntent = Intent().apply {
+            putExtra("UPDATED_USERNAME", updatedUsername)
+            putExtra("UPDATED_EMAIL", updatedEmail)
+            putExtra("UPDATED_PHONE", updatedPhone)
+            putExtra("UPDATED_ADDRESS", updatedAddress)
+            putExtra("UPDATED_PASSWORD", updatedPassword)
+            selectedImageUri?.let {
+                putExtra("UPDATED_PROFILE_IMAGE", it.toString())
+            }
         }
+        setResult(Activity.RESULT_OK, resultIntent)
+        finish()
     }
-
 }
-
 
