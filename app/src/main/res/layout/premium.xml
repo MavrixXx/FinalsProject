@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/premium_gradient_background">
+
+    <RelativeLayout
+        android:id="@+id/premiumBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:background="@drawable/rounded_gray_background_upsidedown"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/PremiumText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/delius_swash_caps_regular"
+            android:text="Developers"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageButton
+            android:id="@+id/backImageButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/back_icon"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/subcriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/delius_swash_caps_regular"
+        android:text="Subcription"
+        android:textColor="@color/accent_color"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/premiumBox" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/premiumBox">
+
+        <RelativeLayout
+            android:id="@+id/horizontalScrollFeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <RelativeLayout
+                android:id="@+id/Benefit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/premium_card_gradient"
+                android:elevation="5dp"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/premiumBeni"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/delius_swash_caps_regular"
+                    android:text="Premium Benefits"
+                    android:textColor="@color/accent_color"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/bene1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/premiumBeni"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="26dp"
+                    android:justificationMode="inter_word"
+                    android:text="✅ Ad-Free Browsing"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/bene2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bene1"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="13dp"
+                    android:justificationMode="inter_word"
+                    android:text="✅ Exclusive Features"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/bene3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bene2"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="13dp"
+                    android:justificationMode="inter_word"
+                    android:text="✅ Early Access to Updates"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/bene4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bene3"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="13dp"
+                    android:justificationMode="inter_word"
+                    android:text="✅ Priority Support"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/bene5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bene4"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="13dp"
+                    android:justificationMode="inter_word"
+                    android:text="✅ Custom Themes &amp; Personalization"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/bene6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bene5"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="45dp"
+                    android:justificationMode="inter_word"
+                    android:text="✅ Offline Access"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/premium1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_toRightOf="@id/Benefit"
+                android:background="@drawable/premium_yellow_card_gradient"
+                android:elevation="5dp"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/premiumTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/delius_swash_caps_regular"
+                    android:text="🌻 Sunflower"
+                    android:textColor="@color/orange"
+                    android:textSize="35sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/premiumTitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/premiumTitle"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/delius_swash_caps_regular"
+                    android:text="1 Month ₱119 / month"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/prem1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/premiumTitle2"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="26dp"
+                    android:justificationMode="inter_word"
+                    android:text="● Full access to premium features"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/prem2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prem1"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="13dp"
+                    android:justificationMode="inter_word"
+                    android:text="● Ad-free experience"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/prem3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prem2"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="13dp"
+                    android:justificationMode="inter_word"
+                    android:text="● Cancel anytime"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/GetPrem1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prem3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/premium_yellowbutton_gradient"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:text="Get Premium" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/premium2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_toRightOf="@id/premium1"
+                android:background="@drawable/premium_red_card_gradient"
+                android:elevation="5dp"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/premiumTitle3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/delius_swash_caps_regular"
+                    android:text="🍑 Peach"
+                    android:textColor="@color/maroon"
+                    android:textSize="35sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/premiumTitle4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/premiumTitle3"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/delius_swash_caps_regular"
+                    android:text="3 Months ₱329 / 3 months"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/prem4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/premiumTitle4"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="26dp"
+                    android:justificationMode="inter_word"
+                    android:text="● Extended premium access"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/prem5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prem4"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="13dp"
+                    android:justificationMode="inter_word"
+                    android:text="● Uninterrupted browsing"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/prem6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prem5"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="13dp"
+                    android:justificationMode="inter_word"
+                    android:text="● Exclusive perks"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/GetPrem2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prem6"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/premium_redbutton_gradient"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:text="Get Premium" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/premium3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_toRightOf="@id/premium2"
+                android:background="@drawable/premium_pink_card_gradient"
+                android:elevation="5dp"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/premiumTitle5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/delius_swash_caps_regular"
+                    android:text="🌷 Tulip"
+                    android:textColor="@color/pink"
+                    android:textSize="35sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/premiumTitle6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/premiumTitle5"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/delius_swash_caps_regular"
+                    android:text="6 Months ₱649 / 6 months"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/prem7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/premiumTitle6"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="26dp"
+                    android:justificationMode="inter_word"
+                    android:text="● Long-term premium benefits"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/prem8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prem7"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="13dp"
+                    android:justificationMode="inter_word"
+                    android:text="● Ultimate user experience"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/prem9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prem8"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="13dp"
+                    android:justificationMode="inter_word"
+                    android:text="● Best value plan"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/GetPrem3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prem9"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/premium_pinkbutton_gradient"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:text="Get Premium" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </HorizontalScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/themeMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_gradient_background">
+
+    <RelativeLayout
+        android:id="@+id/themeSelectionBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:background="@drawable/rounded_gray_background_upsidedown"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/themeSelectionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/delius_swash_caps_regular"
+            android:text="Theme Selection"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:id="@+id/backImageButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/back_icon" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/themeScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@id/themeSelectionBox"
+        tools:layout_editor_absoluteX="30dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/themeDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="Select your preferred app theme"
+                android:textColor="#70A654"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:id="@+id/darkModeBox"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/themeDescriptionText"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/dark_panel_gradient"
+                android:padding="20dp">
+
+                <ImageView
+                    android:id="@+id/darkModeIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/light_darkmode_icon" />
+
+                <TextView
+                    android:id="@+id/lightDarkModeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_toRightOf="@id/darkModeIcon"
+                    android:text="Light/Dark Mode"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <Switch
+                    android:id="@+id/lightDarkModeRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:checked="true"
+                    android:focusedSearchResultHighlightColor="@color/accent_color"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
