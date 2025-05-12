@@ -21,3 +21,10 @@ data class BookmarkModel(
     val plantName: String,
 )
 
+data class JournalModel(
+    val _id: String? = null,
+    val user_Id: String,
+    val journalTitle: String,
+    val journalContent: String,
+)
+

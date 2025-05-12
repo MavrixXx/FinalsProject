@@ -16,18 +16,26 @@ import android.widget.RadioGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginTop
+import com.example.finalsproject.data.api.Session
 import com.example.finalsproject.model.JournalNote
 import com.example.finalsproject.model.TodoItem
 import com.example.finalsproject.model.Subtask
+import com.example.finalsproject.viewModel.BookmarkViewModel
+import com.example.finalsproject.viewModel.JournalViewModel
+import com.example.florasense.data.model.JournalModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.UUID
 
 class Journal_Activity : AppCompatActivity() {
+
+
+    private val journalViewModel: JournalViewModel by viewModels()
 
     private lateinit var plusButton: ImageButton
     private lateinit var deleteButton: ImageButton
@@ -282,6 +290,7 @@ class Journal_Activity : AppCompatActivity() {
     }
 
     private fun addNoteView(note: JournalNote) {
+
         val noteView =
             LayoutInflater.from(this).inflate(R.layout.item_journal_note, scrollFeed, false)
 
@@ -291,6 +300,12 @@ class Journal_Activity : AppCompatActivity() {
         val titleTextView = noteView.findViewById<TextView>(R.id.noteTitleTextView)
         val dateTextView = noteView.findViewById<TextView>(R.id.noteDateTextView)
         val contentTextView = noteView.findViewById<TextView>(R.id.noteContentTextView)
+
+        val journal = JournalModel(
+            user_Id = Session.userID,
+            journalTitle = titleTextView.toString(),
+            journalContent = contentTextView.toString()
+        )
 
         titleTextView.text = note.title
 

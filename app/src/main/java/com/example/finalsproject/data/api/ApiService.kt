@@ -1,6 +1,7 @@
 package com.example.florasense.data.api
 
 import com.example.florasense.data.model.BookmarkModel
+import com.example.florasense.data.model.JournalModel
 import com.example.florasense.data.model.UpdateUserResponse
 import com.example.florasense.data.model.UserModel
 import retrofit2.Response
@@ -28,7 +29,13 @@ interface ApiService {
     suspend fun addBookmark(@Body bookmark: BookmarkModel): Response<BookmarkModel>
 
     @GET("bookmarks")
-    suspend fun getBookmarks(@Query("plantName") plantName: String): Response<List<BookmarkModel>>
+    suspend fun getBookmarks(): Response<List<BookmarkModel>>
+
+    @POST("journal")
+    suspend fun addJournal(@Body journal: JournalModel): Response<JournalModel>
+
+
+
 }
 
 

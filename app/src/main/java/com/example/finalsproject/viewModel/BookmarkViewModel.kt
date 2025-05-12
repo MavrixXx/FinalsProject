@@ -12,30 +12,32 @@ class BookmarkViewModel: ViewModel() {
     private val bookmarkRepository = BookmarkRepository()
     private val _bookmark = MutableLiveData<BookmarkModel?>()
     val bookmark: MutableLiveData<BookmarkModel?> = _bookmark
-    private val _plantName = MutableLiveData<String>()
-    val plantName: MutableLiveData<String> = _plantName
-    private val _bookmarks = MutableLiveData<List<BookmarkModel>?>()
-    val bookmarks: MutableLiveData<List<BookmarkModel>?> = _bookmarks
+    private val _bookmarks = MutableLiveData<List<BookmarkModel>>()
+    val bookmarks: MutableLiveData<List<BookmarkModel>> = _bookmarks
+    
 
-    fun addBookmark(bookmark: BookmarkModel){
+        fun addBookmark(bookmark: BookmarkModel){
+            viewModelScope.launch {
+                val response = bookmarkRepository.addBookmark(bookmark)
+                if (response.isSuccessful) {
+                    _bookmark.value = response.body()
+                }
+            }
+        }
+
+    fun getBookmarks() {
         viewModelScope.launch {
-            val response = bookmarkRepository.addBookmark(bookmark)
-            if (response.isSuccessful) {
-                _bookmark.value = response.body()
+            try {
+                val response = bookmarkRepository.getBookmarks()
+                if (response.isSuccessful) {
+                    _bookmarks.value = response.body()
+                } else {
+                    _bookmarks.value = emptyList()
+                }
+            } catch (e: Exception) {
+                _bookmarks.value = emptyList()
             }
         }
     }
-
-    fun getBookmarks(plantName: String) {
-        viewModelScope.launch {
-            val response = bookmarkRepository.getBookmarks(plantName.toString())
-            if (response.isSuccessful) {
-                _bookmarks.value = response.body()
-            } else {
-                _bookmarks.value = null
-            }
-        }
-    }
-
 
 }
